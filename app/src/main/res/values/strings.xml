@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Uniqueue</string>
+    <string name="app_name">UniQueue</string>
     <string name="title_activity_login">Login</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
