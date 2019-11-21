@@ -43,16 +43,15 @@
         android:text="        Cory Hall 241 (Started in 11:58 AM)"
         android:textColor="#FF9800" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="156dp"
-            tools:layout_editor_absoluteY="635dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/waitingTime"
@@ -69,19 +68,16 @@
                 android:id="@+id/textWait"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
                 android:layout_marginLeft="200sp"
+                android:singleLine="true"
                 android:text="Estimated Time" />
 
         </LinearLayout>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="128dp"
-            tools:layout_editor_absoluteY="635dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/position"
@@ -98,12 +94,12 @@
                 android:id="@+id/textQueue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
                 android:layout_marginLeft="120sp"
+                android:singleLine="true"
                 android:text="in Queue" />
 
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 
 </LinearLayout>
