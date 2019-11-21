@@ -16,6 +16,7 @@ class SplashActivity : AppCompatActivity() {
 //        wait for 500ms
         handler.postDelayed({
             navigateToNext()
+            finish()
         }, 500)
     }
 
