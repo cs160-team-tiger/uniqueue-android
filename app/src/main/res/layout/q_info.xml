@@ -16,6 +16,7 @@
             android:layout_weight="1" />
         <ImageButton
             android:id="@+id/menu"
+            android:background="?selectableItemBackgroundBorderless"
             android:layout_marginEnd="0dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
