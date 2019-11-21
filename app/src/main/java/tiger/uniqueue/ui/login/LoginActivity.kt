@@ -1,6 +1,7 @@
 package tiger.uniqueue.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -14,8 +15,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import tiger.uniqueue.QueueListActivity
 
 import tiger.uniqueue.R
+import tiger.uniqueue.startActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -63,6 +66,7 @@ class LoginActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
+            startActivity<QueueListActivity>()
             finish()
         })
 
