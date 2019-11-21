@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Uniqueue</string>
     <string name = "hint_text" >Enter your question in detail</string>
+    <string name="attach_image">ATTACH IMAGE</string>
 </resources>
