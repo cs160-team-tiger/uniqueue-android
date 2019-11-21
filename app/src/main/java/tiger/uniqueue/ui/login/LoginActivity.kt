@@ -18,6 +18,7 @@ import android.widget.Toast
 import tiger.uniqueue.QueueListActivity
 
 import tiger.uniqueue.R
+import tiger.uniqueue.data.LoginType
 import tiger.uniqueue.startActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -64,9 +65,6 @@ class LoginActivity : AppCompatActivity() {
                 updateUiWithUser(loginResult.success)
             }
             setResult(Activity.RESULT_OK)
-
-            //Complete and destroy login activity once successful
-            startActivity<QueueListActivity>()
             finish()
         })
 
@@ -85,25 +83,22 @@ class LoginActivity : AppCompatActivity() {
                 )
             }
 
-            setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
-                            username.text.toString(),
-                            password.text.toString()
-                        )
-                }
-                false
-            }
-
             loginInst.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+                loginViewModel.login(
+                    username.text.toString(),
+                    password.text.toString(),
+                    LoginType.INSTRUCTOR
+                )
             }
 
             loginStu.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+                loginViewModel.login(
+                    username.text.toString(),
+                    password.text.toString(),
+                    LoginType.STUDENT
+                )
             }
         }
     }
@@ -112,11 +107,14 @@ class LoginActivity : AppCompatActivity() {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
-        Toast.makeText(
-            applicationContext,
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
+        when (model.type) {
+            LoginType.INSTRUCTOR -> {
+                TODO("Add instructor flow")
+            }
+            LoginType.STUDENT -> {
+                startActivity<QueueListActivity>()
+            }
+        }
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {

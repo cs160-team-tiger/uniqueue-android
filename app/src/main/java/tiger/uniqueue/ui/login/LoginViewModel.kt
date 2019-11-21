@@ -8,6 +8,7 @@ import tiger.uniqueue.data.LoginRepository
 import tiger.uniqueue.data.Result
 
 import tiger.uniqueue.R
+import tiger.uniqueue.data.LoginType
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -17,13 +18,18 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String) {
+    fun login(username: String, password: String, type: LoginType) {
         // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
+        val result = loginRepository.login(username, password, type)
 
         if (result is Result.Success) {
             _loginResult.value =
-                LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
+                LoginResult(
+                    success = LoggedInUserView(
+                        displayName = result.data.displayName,
+                        type = result.data.type
+                    )
+                )
         } else {
             _loginResult.value = LoginResult(error = R.string.login_failed)
         }
