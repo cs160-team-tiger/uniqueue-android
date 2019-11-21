@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  1"
+            android:textColor="#2196F3"
+            android:textSize="36sp" />
+
+        <TextView
+            android:id="@+id/text_inProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="in progress "
+            android:textColor="#009688" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/student_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="     James"
+            android:textColor="#0C0102"
+            android:textSize="23sp" />
+
+        <TextView
+            android:id="@+id/text_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Question 6: Pretty confused what to put into the &quot;having&quot; clause. Why doesn't abs(location) > 2?"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
