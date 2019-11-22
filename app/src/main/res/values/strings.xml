@@ -13,6 +13,6 @@
     <string name="login_failed">"Login failed"</string>
     <string name="login_with_calnet">Log In with CalNet</string>
     <string name="title_active_queues">Active Queues</string>
-    <string name = "hint_text" >Enter your question in detail</string>
+    <string name="hint_text">Enter your question in detail</string>
     <string name="attach_image">ATTACH IMAGE</string>
 </resources>
