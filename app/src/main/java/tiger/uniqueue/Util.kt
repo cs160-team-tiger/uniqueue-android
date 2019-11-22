@@ -5,5 +5,18 @@ import android.content.Context
 import android.content.Intent
 
 inline fun <reified T : Activity> Context.startActivity() {
-    startActivity(Intent(this, T::class.java))
+    startActivity(T::class.java)
+}
+
+fun <T : Activity> Context.startActivity(clazz: Class<T>) {
+    startActivity(clazz, null)
+}
+
+fun <T : Activity> Context.startActivity(
+    clazz: Class<T>,
+    intentInitializer: ((Intent) -> Unit)? = null
+) {
+    val intent = Intent(this, clazz)
+    intentInitializer?.invoke(intent)
+    startActivity(intent)
 }

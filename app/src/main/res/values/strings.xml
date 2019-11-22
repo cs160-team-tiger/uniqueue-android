@@ -13,4 +13,9 @@
     <string name="login_failed">"Login failed"</string>
     <string name="login_with_calnet">Log In with CalNet</string>
     <string name="title_active_queues">Active Queues</string>
+    <string name="hint_text">Enter your question in detail</string>
+    <string name="attach_image">ATTACH IMAGE</string>
+    <string name="estimated_wait_time_title">Estimated wait time is</string>
+    <string name="title_join_the_queue">Join the Queue</string>
+    <string name="title_in_position">You will be in position</string>
 </resources>
