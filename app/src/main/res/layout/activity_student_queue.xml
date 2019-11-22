@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="@dimen/common_padding"
     android:background="@color/color_grey_bg"
     tools:context=".ui.queue.QueueListActivity">
 
@@ -13,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/less_padding"
+        android:layout_marginHorizontal="@dimen/common_padding"
         android:text="@string/title_active_queues"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -1,54 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_marginVertical="@dimen/less_padding"
+    android:layout_marginHorizontal="@dimen/common_padding"
 
+    android:foreground="?selectableItemBackground"
+    app:cardElevation="4dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-        <ImageButton
-            android:id="@+id/menu"
-            android:background="?selectableItemBackgroundBorderless"
-            android:layout_marginEnd="0dp"
+        android:orientation="vertical"
+        android:padding="@dimen/less_padding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+            <ImageButton
+                android:id="@+id/menu"
+                android:background="?selectableItemBackgroundBorderless"
+                android:layout_marginEnd="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                app:srcCompat="@drawable/ic_menu_24dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            app:srcCompat="@drawable/menu_sm" />
-    </LinearLayout>
+            android:fontFamily="sans-serif-black"
+            android:singleLine="true"
+            android:layout_marginStart="32dp"
+            android:text="CS61A - David's OH"
+            android:textColor="#1D2A72"
+            android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-black"
-        android:singleLine="true"
-        android:layout_marginStart="32dp"
-        android:text="CS61A - David's OH"
-        android:textColor="#1D2A72"
-        android:textSize="24sp" />
+        <TextView
+            android:id="@+id/locationAndTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_marginStart="32dp"
+            android:text="Cory Hall 241 (Started in 11:58 AM)"
+            android:textColor="#FF9800" />
 
-    <TextView
-        android:id="@+id/locationAndTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:singleLine="true"
-        android:layout_marginStart="32dp"
-        android:text="Cory Hall 241 (Started in 11:58 AM)"
-        android:textColor="#FF9800" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,5 +108,6 @@
                     android:singleLine="true"
                     android:text="Estimated Time" />
             </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>
