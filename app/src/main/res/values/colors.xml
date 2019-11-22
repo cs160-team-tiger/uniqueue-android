@@ -5,4 +5,5 @@
     <color name="colorAccent">#FDB515</color>
     <color name="color_inst_btn">#3B7EA1</color>
     <color name="color_stu_btn">#c3820d</color>
+    <color name="color_grey_bg">#E5E5E5</color>
 </resources>
