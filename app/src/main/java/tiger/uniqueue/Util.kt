@@ -9,5 +9,14 @@ inline fun <reified T : Activity> Context.startActivity() {
 }
 
 fun <T : Activity> Context.startActivity(clazz: Class<T>) {
-    startActivity(Intent(this, clazz))
+    startActivity(clazz, null)
+}
+
+fun <T : Activity> Context.startActivity(
+    clazz: Class<T>,
+    intentInitializer: ((Intent) -> Unit)? = null
+) {
+    val intent = Intent(this, clazz)
+    intentInitializer?.invoke(intent)
+    startActivity(intent)
 }
