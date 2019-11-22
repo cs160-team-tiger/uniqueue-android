@@ -19,26 +19,33 @@ class QueueRepository {
                 11,
                 Duration.ofMinutes(4)
             ), QueueInfo(
-                1,
+                2,
                 "CS61A - BBB's OH",
                 "Cory Hall 241",
                 LocalDateTime.of(2019, 11, 21, 17, 58),
                 5,
                 Duration.ofMinutes(12)
             ), QueueInfo(
-                1,
+                3,
                 "CS61A - CCC's OH",
                 "Cory Hall 241",
                 LocalDateTime.of(2019, 11, 21, 14, 58),
                 34,
                 Duration.ofMinutes(76)
             ), QueueInfo(
-                1,
+                4,
                 "CS61A - DDD's OH",
                 "Cory Hall 241",
                 LocalDateTime.of(2019, 11, 21, 10, 58),
                 3,
                 Duration.ofMinutes(2)
+            ), QueueInfo(
+                5,
+                "CS61A - EEE's OH",
+                "Cory Hall 241",
+                LocalDateTime.of(2019, 11, 21, 15, 58),
+                12,
+                Duration.ofMinutes(33)
             )
         )
     }
