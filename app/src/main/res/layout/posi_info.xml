@@ -17,16 +17,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="1"
-            android:textColor="#2196F3"
+            android:textColor="#3B7EA1"
             android:textSize="36sp" />
 
         <TextView
             android:id="@+id/text_inProgress"
-            android:paddingHorizontal="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
             android:text="in progress "
-            android:textColor="#009688" />
+            android:textColor="#859438" />
     </LinearLayout>
 
     <LinearLayout
