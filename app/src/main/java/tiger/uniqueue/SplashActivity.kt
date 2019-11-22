@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import tiger.uniqueue.ui.login.LoginActivity
+import tiger.uniqueue.ui.queue.QueueListActivity
 
 class SplashActivity : AppCompatActivity() {
 

@@ -1,7 +1,8 @@
-package tiger.uniqueue
+package tiger.uniqueue.ui.queue
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import tiger.uniqueue.R
 
 class QueueListActivity : AppCompatActivity() {
 

@@ -5,5 +5,5 @@ import android.content.Context
 import android.content.Intent
 
 inline fun <reified T : Activity> Context.startActivity() {
-    startActivity(Intent(this   , T::class.java))
+    startActivity(Intent(this, T::class.java))
 }
