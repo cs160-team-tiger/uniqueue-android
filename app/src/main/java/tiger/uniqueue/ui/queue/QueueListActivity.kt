@@ -1,8 +1,7 @@
 package tiger.uniqueue.ui.queue
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,9 +10,9 @@ import butterknife.ButterKnife
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import tiger.uniqueue.R
-import tiger.uniqueue.data.model.QueueInfo
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.time.temporal.ChronoUnit
-import java.time.temporal.TemporalUnit
 import java.util.*
 
 class QueueListActivity : AppCompatActivity() {
@@ -36,14 +35,14 @@ class QueueListActivity : AppCompatActivity() {
         queueList.adapter = queueAdapter
         queueAdapter.setOnItemClickListener { _, view, position ->
             viewModel.selectInfo(
-                viewModel.activeQueues.value?.get(
+                viewModel.activeQueues.value?.data?.get(
                     position
                 )
             )
         }
         viewModel.activeQueues.observe(
             this,
-            androidx.lifecycle.Observer { t -> queueAdapter.setNewData(t) })
+            androidx.lifecycle.Observer { t -> queueAdapter.setNewData(t.data) })
         viewModel.selectedQueue.observe(this, androidx.lifecycle.Observer {
             val selected = it ?: return@Observer
             // TODO open detailed
@@ -56,14 +55,19 @@ class QueueListActivity : AppCompatActivity() {
     }
 
     class QueueAdapter :
-        BaseQuickAdapter<QueueInfo, BaseViewHolder>(R.layout.q_info, LinkedList()) {
-        override fun convert(helper: BaseViewHolder, item: QueueInfo) {
+        BaseQuickAdapter<tiger.uniqueue.data.model.Queue, BaseViewHolder>(
+            R.layout.q_info,
+            LinkedList()
+        ) {
+        override fun convert(helper: BaseViewHolder, item: tiger.uniqueue.data.model.Queue) {
             with(helper) {
-                setText(R.id.title, item.title)
-                val timeStr = item.time.toLocalTime().truncatedTo(ChronoUnit.MINUTES).toString()
+                setText(R.id.title, "Queue at ${item.location}")
+                val timeStr =
+                    LocalDateTime.ofEpochSecond(item.startTime, 0, OffsetDateTime.now().offset)
+                        .truncatedTo(ChronoUnit.MINUTES).toString()
                 setText(R.id.locationAndTime, "${item.location} (Started in $timeStr)")
-                setText(R.id.position, item.inQueueNum.toString())
-                setText(R.id.waitingTime, item.waitTime.toMinutes().toString())
+                setText(R.id.position, "3")
+                setText(R.id.waitingTime, "5")
             }
         }
     }

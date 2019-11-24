@@ -6,17 +6,17 @@ import java.util.List;
 
 public class Queue extends BaseModel {
     @SerializedName("_id")
-    Long id;
+    public Long id;
     @SerializedName("instructor_id")
-    Long instructorId;
+    public Long instructorId;
     @SerializedName("is_open")
-    Boolean isOpen;
+    public Boolean isOpen;
     @SerializedName("location")
-    String location;
+    public String location;
     @SerializedName("motd")
-    String motd;
+    public String motd;
     @SerializedName("question_ids")
-    List<Long> questionIds;
+    public List<Long> questionIds;
     @SerializedName("start_time")
-    Long startTime;
+    public Long startTime;
 }

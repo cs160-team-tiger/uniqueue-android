@@ -1,60 +1,27 @@
 package tiger.uniqueue.data
 
-import tiger.uniqueue.data.model.QueueInfo
-import java.time.Duration
-import java.time.LocalDateTime
+import androidx.lifecycle.MutableLiveData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import tiger.uniqueue.data.model.Queue
 
 class QueueRepository {
-    private var _queues = mutableListOf<QueueInfo>()
-    val queues: List<QueueInfo>
-        get() = _queues
 
+    private val _queueLiveData = MutableLiveData<Resource<List<Queue>>>()
+    val queueLiveData = _queueLiveData
     fun refresh() {
-        _queues = mutableListOf(
-            QueueInfo(
-                1,
-                "CS61A - AAA's OH",
-                "Cory Hall 241",
-                LocalDateTime.of(2019, 11, 21, 11, 58),
-                11,
-                Duration.ofMinutes(4)
-            ), QueueInfo(
-                2,
-                "CS61A - BBB's OH",
-                "Cory Hall 241",
-                LocalDateTime.of(2019, 11, 21, 17, 58),
-                5,
-                Duration.ofMinutes(12)
-            ), QueueInfo(
-                3,
-                "CS61A - CCC's OH",
-                "Cory Hall 241",
-                LocalDateTime.of(2019, 11, 21, 14, 58),
-                34,
-                Duration.ofMinutes(76)
-            ), QueueInfo(
-                4,
-                "CS61A - DDD's OH",
-                "Cory Hall 241",
-                LocalDateTime.of(2019, 11, 21, 10, 58),
-                3,
-                Duration.ofMinutes(2)
-            ), QueueInfo(
-                5,
-                "CS61A - EEE's OH",
-                "Cory Hall 241",
-                LocalDateTime.of(2019, 11, 21, 15, 58),
-                12,
-                Duration.ofMinutes(33)
-            )
+        Network.uniqueueService.allQueues.enqueue(
+            object : Callback<List<Queue>> {
+                override fun onFailure(call: Call<List<Queue>>, t: Throwable) {
+                    queueLiveData.postValue(Resource.Error(t.message ?: "Error"))
+                }
+
+                override fun onResponse(call: Call<List<Queue>>, response: Response<List<Queue>>) {
+                    queueLiveData.postValue(Resource.Success(response.body()!!))
+                }
+            }
         )
-    }
-
-    fun add(info: QueueInfo) {
-        _queues.add(info)
-    }
-
-    fun remove(info: QueueInfo) {
-        _queues.removeIf { it.id == info.id }
+        queueLiveData.postValue(Resource.Loading())
     }
 }
