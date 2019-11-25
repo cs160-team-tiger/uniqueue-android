@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -12,6 +14,7 @@ import tiger.uniqueue.data.Resource
 import tiger.uniqueue.data.model.Question
 import tiger.uniqueue.data.model.Queue
 import tiger.uniqueue.onError
+import java.util.*
 
 class QueueDetailActivity : AppCompatActivity() {
 
@@ -19,6 +22,12 @@ class QueueDetailActivity : AppCompatActivity() {
 
     @BindView(R.id.swiperefresh)
     lateinit var swipeRefresh: SwipeRefreshLayout
+    @BindView(R.id.rv_queue_header)
+    lateinit var queueHeaderList: RecyclerView
+    @BindView(R.id.rv_question_list)
+    lateinit var questionListView: RecyclerView
+
+    private lateinit var headerAdapter: QueueListActivity.QueueAdapter
 
     private var queueId: Long = Long.MIN_VALUE
 
@@ -33,6 +42,10 @@ class QueueDetailActivity : AppCompatActivity() {
         val intent = getIntent()
         queueId = intent.getLongExtra(QUEUE_ID_EXTRA, Long.MIN_VALUE)
         fetchQueue()
+
+        headerAdapter = QueueListActivity.QueueAdapter()
+        queueHeaderList.adapter = headerAdapter
+        queueHeaderList.layoutManager = LinearLayoutManager(this)
 
         swipeRefresh.setOnRefreshListener(this::fetchQueue)
 
@@ -75,7 +88,7 @@ class QueueDetailActivity : AppCompatActivity() {
     }
 
     private fun updateQueueView(q: Queue) {
-
+        headerAdapter.setNewData(Collections.singletonList(q))
     }
 
     private fun updateQuestionList(questions: List<Question>) {

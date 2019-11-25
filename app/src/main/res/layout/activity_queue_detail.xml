@@ -6,12 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.queue.QueueDetailActivity">
 
-    <include
-        android:id="@+id/card_queue_info"
-        layout="@layout/q_info"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_queue_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/common_padding"
         app:layout_constraintBottom_toTopOf="@id/swiperefresh"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +22,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_queue_info">
+        app:layout_constraintTop_toBottomOf="@id/rv_queue_header">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_question_list"
