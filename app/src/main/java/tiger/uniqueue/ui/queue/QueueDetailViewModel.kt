@@ -21,17 +21,17 @@ class QueueDetailViewModel : ViewModel() {
         _queue.value = Resource.Loading()
         val disposable = Network.uniqueueService
             .getQueueByIdRx(id)
-            .observeOn(AndroidSchedulers.mainThread())
             .doOnSuccess(this::loadQuestion)
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                _queue.value = Resource.Success(it)
+                _queue.postValue(Resource.Success(it))
             },
-                { _queue.value = Resource.Error(it?.message ?: "Network Error") }
+                { _queue.postValue(Resource.Error(it?.message ?: "Network Error")) }
             )
     }
 
     private fun loadQuestion(queue: Queue) {
-        _questions.value = Resource.Loading()
+        _questions.postValue(Resource.Loading())
         val disposable = Flowable.fromIterable(queue.questionIds)
             .flatMap {
                 Network.uniqueueService.getQuestionByIdRx(it).toFlowable()
@@ -39,9 +39,9 @@ class QueueDetailViewModel : ViewModel() {
             .toList()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                _questions.value = Resource.Success(it)
+                _questions.postValue(Resource.Success(it))
             }, {
-                _questions.value = Resource.Error(it?.message ?: "Network Error")
+                _questions.postValue(Resource.Error(it?.message ?: "Network Error"))
             })
     }
 }

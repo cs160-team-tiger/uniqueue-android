@@ -9,7 +9,7 @@ object Network {
         Retrofit.Builder()
             .baseUrl("https://cs160-uniqueue.herokuapp.com/")
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .build()
     }
     val uniqueueService: UniqueueService by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {

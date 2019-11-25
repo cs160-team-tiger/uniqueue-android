@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseViewHolder
 import tiger.uniqueue.R
 import tiger.uniqueue.data.Resource
 import tiger.uniqueue.onError
+import tiger.uniqueue.startActivity
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
 import java.time.temporal.ChronoUnit
@@ -67,9 +68,14 @@ class QueueListActivity : AppCompatActivity() {
                     }
                 }
             })
-        viewModel.selectedQueue.observe(this, androidx.lifecycle.Observer {
-            val selected = it ?: return@Observer
-            // TODO open detailed
+        viewModel.selectedQueue.observe(this, androidx.lifecycle.Observer { q ->
+            val selected = q ?: return@Observer
+            startActivity<QueueDetailActivity> {
+                it.putExtra(
+                    QueueDetailActivity.QUEUE_ID_EXTRA,
+                    selected.id
+                )
+            }
         })
     }
 
