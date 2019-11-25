@@ -10,10 +10,6 @@ inline fun <reified T : Activity> Context.startActivity(noinline intentInitializ
     startActivity(T::class.java, intentInitializer)
 }
 
-fun <T : Activity> Context.startActivity(clazz: Class<T>) {
-    startActivity(clazz, null)
-}
-
 fun <T : Activity> Context.startActivity(
     clazz: Class<T>,
     intentInitializer: ((Intent) -> Unit)? = null

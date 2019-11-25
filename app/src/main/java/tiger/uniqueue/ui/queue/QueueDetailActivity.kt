@@ -28,6 +28,7 @@ class QueueDetailActivity : AppCompatActivity() {
     lateinit var questionListView: RecyclerView
 
     private lateinit var headerAdapter: QueueAdapter
+    private lateinit var questionAdapter: QuestionAdapter
 
     private var queueId: Long = Long.MIN_VALUE
 
@@ -39,13 +40,16 @@ class QueueDetailActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this)
             .get(QueueDetailViewModel::class.java)
 
-        val intent = getIntent()
         queueId = intent.getLongExtra(QUEUE_ID_EXTRA, Long.MIN_VALUE)
         fetchQueue()
 
         headerAdapter = QueueAdapter()
         queueHeaderList.adapter = headerAdapter
         queueHeaderList.layoutManager = LinearLayoutManager(this)
+
+        questionAdapter = QuestionAdapter()
+        questionListView.adapter = questionAdapter
+        questionListView.layoutManager = LinearLayoutManager(this)
 
         swipeRefresh.setOnRefreshListener(this::fetchQueue)
 
@@ -92,7 +96,7 @@ class QueueDetailActivity : AppCompatActivity() {
     }
 
     private fun updateQuestionList(questions: List<Question>) {
-
+        questionAdapter.setNewData(questions)
     }
 
     companion object {

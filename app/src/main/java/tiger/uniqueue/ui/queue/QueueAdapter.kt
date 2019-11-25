@@ -21,6 +21,7 @@ class QueueAdapter :
                 LocalDateTime.ofEpochSecond(item.startTime, 0, OffsetDateTime.now().offset)
                     .truncatedTo(ChronoUnit.MINUTES).toString()
             setText(R.id.locationAndTime, "${item.location} (Started in $timeStr)")
+//            TODO: remove hardcode
             setText(R.id.position, "3")
             setText(R.id.waitingTime, "5")
         }
