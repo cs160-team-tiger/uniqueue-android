@@ -14,7 +14,7 @@ class QueueRepository {
         Network.uniqueueService.allQueues.enqueue(
             object : Callback<List<Queue>> {
                 override fun onFailure(call: Call<List<Queue>>, t: Throwable) {
-                    queueLiveData.postValue(Resource.Error(t.message ?: "Error"))
+                    queueLiveData.postValue(Resource.Error(t.message ?: "Network Error"))
                 }
 
                 override fun onResponse(call: Call<List<Queue>>, response: Response<List<Queue>>) {
