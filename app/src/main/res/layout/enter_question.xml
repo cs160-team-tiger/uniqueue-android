@@ -23,12 +23,14 @@
             android:layout_marginTop="14sp"
             android:ems="10"
             android:text="@string/title_join_the_queue"
+            android:layout_marginStart="@dimen/common_padding"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
         <TextView
             android:id="@+id/position"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_padding"
             android:layout_marginTop="14sp"
             android:text="@string/title_in_position"
             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -37,12 +39,15 @@
             android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_padding"
             android:text="@string/estimated_wait_time_title"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_padding"
+            android:layout_marginEnd="@dimen/common_padding"
             android:layout_marginTop="14sp"
             android:background="#16333333"
             android:hint="@string/hint_text"
@@ -61,8 +66,14 @@
             android:id="@+id/image_button"
             android:layout_width="200dp"
             android:layout_height="50dp"
+            android:layout_marginStart="@dimen/common_padding"
             android:layout_marginTop="14sp"
-            android:text="@string/attach_image" />
+            android:background="#FFFFFF"
+            android:text="@string/attach_image"
+            android:textAllCaps="true"
+            android:textColor="#3B7EA1"
+            android:textStyle="bold"
+            android:typeface="normal" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,16 +82,21 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:background="#FFFFFF"
+                android:text="Confirm"
+                android:textAllCaps="true"
+                android:textColor="#3B7EA1" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:background="#FFFFFF"
+                android:text="@android:string/cancel"
+                android:textColor="#6D333333" />
         </LinearLayout>
 
 
