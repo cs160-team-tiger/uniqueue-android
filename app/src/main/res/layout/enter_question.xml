@@ -1,53 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/less_padding"
+    android:layout_marginHorizontal="@dimen/common_padding"
 
+    android:foreground="?selectableItemBackground"
+    app:cardElevation="4dp">
 
-    <TextView
-        android:id="@+id/Join_the_Queue"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="@string/title_join_the_queue"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/position"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title_in_position"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/estimated_wait_time_title"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_text"
-        android:theme="@style/TextInputLayoutStyle"
-        app:boxBackgroundColor="#DCDCDC"
-        app:counterEnabled="true"
-        app:counterMaxLength="250">
-
-        <com.google.android.material.textfield.TextInputEditText
+        <TextView
+            android:id="@+id/Join_the_Queue"
             android:layout_width="match_parent"
-            android:layout_height="150dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14sp"
+            android:ems="10"
+            android:text="@string/title_join_the_queue"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14sp"
+            android:text="@string/title_in_position"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/image_button"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="@string/attach_image" />
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/estimated_wait_time_title"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    
-</LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14sp"
+            android:background="#16333333"
+            android:hint="@string/hint_text"
+            android:theme="@style/TextInputLayoutStyle"
+            app:boxBackgroundColor="#DCDCDC"
+            app:counterEnabled="true"
+            app:counterMaxLength="250">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/image_button"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="14sp"
+            android:text="@string/attach_image" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14sp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
