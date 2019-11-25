@@ -131,7 +131,8 @@ class QueueDetailActivity : AppCompatActivity() {
                 val builder = AlertDialog.Builder(it)
                 val inflater = requireActivity().layoutInflater
                 with(builder) {
-                    setView(inflater.inflate(R.layout.enter_question, null))
+                    val view = inflater.inflate(R.layout.enter_question, null)
+                    setView(view)
                         .setPositiveButton(
                             R.string.action_confirm
                         ) { dialog, _ ->
@@ -140,14 +141,9 @@ class QueueDetailActivity : AppCompatActivity() {
                         .setNegativeButton(
                             R.string.action_cancel
                         ) { dialog, _ ->
-                            dialog.cancel()
+                            dialog.dismiss()
                         }
-                    setOnDismissListener {
 
-                    }
-                    setOnCancelListener {
-
-                    }
                 }
 
                 builder.create()
