@@ -27,7 +27,7 @@ class QueueDetailActivity : AppCompatActivity() {
     @BindView(R.id.rv_question_list)
     lateinit var questionListView: RecyclerView
 
-    private lateinit var headerAdapter: QueueListActivity.QueueAdapter
+    private lateinit var headerAdapter: QueueAdapter
 
     private var queueId: Long = Long.MIN_VALUE
 
@@ -43,7 +43,7 @@ class QueueDetailActivity : AppCompatActivity() {
         queueId = intent.getLongExtra(QUEUE_ID_EXTRA, Long.MIN_VALUE)
         fetchQueue()
 
-        headerAdapter = QueueListActivity.QueueAdapter()
+        headerAdapter = QueueAdapter()
         queueHeaderList.adapter = headerAdapter
         queueHeaderList.layoutManager = LinearLayoutManager(this)
 
