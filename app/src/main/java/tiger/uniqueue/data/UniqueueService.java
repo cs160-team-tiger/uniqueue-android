@@ -2,6 +2,7 @@ package tiger.uniqueue.data;
 
 import java.util.List;
 
+import io.reactivex.Single;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -28,11 +29,17 @@ public interface UniqueueService {
     @GET("questions/fetchbyid")
     Call<Question> getQuestionById(@Query("id") long id);
 
+    @GET("questions/fetchbyid")
+    Single<Question> getQuestionByIdRx(@Query("id") long id);
+
     @GET("queue/fetchall")
     Call<List<Queue>> getAllQueues();
 
     @GET("queue/fetchbyid")
     Call<Queue> getQueueById(@Query("id") long uuid);
+
+    @GET("queue/fetchbyid")
+    Single<Queue> getQueueByIdRx(@Query("id") long uuid);
 
     @GET("queue/peek")
     Call<Long> peekQueue(@Query("id") long uuid);
