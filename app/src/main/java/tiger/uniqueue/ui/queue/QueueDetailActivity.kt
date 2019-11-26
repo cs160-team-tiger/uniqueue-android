@@ -95,7 +95,6 @@ class QueueDetailActivity : AppCompatActivity() {
                 }
                 is Resource.Loading -> {
                     swipeRefresh.isRefreshing = true
-                    addQuestionButon.isVisible = false
                 }
                 is Resource.Error -> {
                     swipeRefresh.isRefreshing = false
