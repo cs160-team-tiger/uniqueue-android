@@ -15,6 +15,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,6 +28,7 @@ import tiger.uniqueue.data.model.Question
 import tiger.uniqueue.data.model.Queue
 import tiger.uniqueue.onError
 import tiger.uniqueue.ui.login.LoginViewModel
+import tiger.uniqueue.unserialize
 import java.util.*
 
 
@@ -177,8 +179,8 @@ class QueueDetailActivity : AppCompatActivity() {
                             )
                             Network.uniqueueService
                                 .offerQueue(queueId, userId, editText.text.toString())
-                                .enqueue(object : Callback<BaseModel> {
-                                    override fun onFailure(call: Call<BaseModel>, t: Throwable) {
+                                .enqueue(object : Callback<ResponseBody> {
+                                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                                         viewModel._questionStatus.postValue(
                                             Resource.Error(
                                                 t.message ?: "Network error"
@@ -187,10 +189,16 @@ class QueueDetailActivity : AppCompatActivity() {
                                     }
 
                                     override fun onResponse(
-                                        call: Call<BaseModel>,
-                                        response: Response<BaseModel>
+                                        call: Call<ResponseBody>,
+                                        response: Response<ResponseBody>
                                     ) {
-                                        val error = response.body()?.error
+                                        var error: String? = null
+                                        try {
+                                            error =
+                                                unserialize<BaseModel>(response.body()?.string()).error
+                                        } catch (e: Exception) {
+
+                                        }
                                         viewModel._questionStatus.postValue(
                                             if (error == null) {
                                                 Resource.Success(
