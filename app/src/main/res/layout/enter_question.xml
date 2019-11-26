@@ -69,6 +69,7 @@
             android:layout_height="50dp"
             android:layout_marginStart="@dimen/common_padding"
             android:layout_marginTop="14sp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:background="#FFFFFF"
             android:text="@string/attach_image"
             android:textAllCaps="true"
