@@ -192,6 +192,13 @@ class QueueDetailActivity : AppCompatActivity() {
                                         call: Call<ResponseBody>,
                                         response: Response<ResponseBody>
                                     ) {
+                                        if (!response.isSuccessful) {
+                                            onFailure(
+                                                call,
+                                                java.lang.Exception("Network error with code: ${response.code()}")
+                                            )
+                                            return
+                                        }
                                         var error: String? = null
                                         try {
                                             error =

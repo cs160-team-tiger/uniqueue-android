@@ -18,7 +18,11 @@ class QueueRepository {
                 }
 
                 override fun onResponse(call: Call<List<Queue>>, response: Response<List<Queue>>) {
-                    queueLiveData.postValue(Resource.Success(response.body()!!))
+                    if (response.isSuccessful) {
+                        queueLiveData.postValue(Resource.Success(response.body()!!))
+                    } else {
+                        onFailure(call, Exception("Network error with code: ${response.code()}"))
+                    }
                 }
             }
         )
