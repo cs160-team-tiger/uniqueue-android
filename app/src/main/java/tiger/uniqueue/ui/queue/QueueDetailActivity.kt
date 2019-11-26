@@ -14,11 +14,18 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.textfield.TextInputEditText
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import tiger.uniqueue.R
+import tiger.uniqueue.data.InMemCache
+import tiger.uniqueue.data.Network
 import tiger.uniqueue.data.Resource
 import tiger.uniqueue.data.model.Question
 import tiger.uniqueue.data.model.Queue
 import tiger.uniqueue.onError
+import tiger.uniqueue.ui.login.LoginViewModel
 import java.util.*
 
 
@@ -95,6 +102,21 @@ class QueueDetailActivity : AppCompatActivity() {
                 }
             }
         })
+
+        viewModel.questionStatus.observe(this, Observer {
+            when (it) {
+                is Resource.Success -> {
+                    fetchQueue()
+                }
+                is Resource.Loading -> {
+                }
+                is Resource.Error -> {
+                    swipeRefresh.isRefreshing = false
+                    onError(it.message)
+                }
+            }
+        })
+
     }
 
     private fun openAddQuestionDialog() {
@@ -105,7 +127,7 @@ class QueueDetailActivity : AppCompatActivity() {
         }
         ft.addToBackStack(null)
         val newFragment =
-            AddQuestionDialogFragment.newInstance(queueId)
+            AddQuestionDialogFragment.newInstance(queueId, viewModel)
         newFragment.show(ft, "dialog")
     }
 
@@ -125,18 +147,56 @@ class QueueDetailActivity : AppCompatActivity() {
         questionAdapter.setNewData(questions)
     }
 
-    class AddQuestionDialogFragment : DialogFragment() {
+    class AddQuestionDialogFragment(private val viewModel: QueueDetailViewModel) :
+        DialogFragment() {
         override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
             return activity?.let {
                 val builder = AlertDialog.Builder(it)
                 val inflater = requireActivity().layoutInflater
+                val queueId = arguments?.getLong(QUEUE_ID_EXTRA)
                 with(builder) {
                     val view = inflater.inflate(R.layout.enter_question, null)
+                    val editText = view.findViewById<TextInputEditText>(R.id.et_question)
                     setView(view)
                         .setPositiveButton(
                             R.string.action_confirm
                         ) { dialog, _ ->
                             dialog.dismiss()
+                            val userId =
+                                InMemCache.INSTANCE.cache[LoginViewModel.USER_ID_KEY] as? Long
+                            if (queueId == null || userId == null) {
+                                viewModel._questionStatus.postValue(
+                                    Resource.Error(
+                                        "Wrong queueId or userId"
+                                    )
+                                )
+                                return@setPositiveButton
+                            }
+                            viewModel._questionStatus.postValue(
+                                Resource.Loading()
+                            )
+                            Network.uniqueueService
+                                .offerQueue(queueId, userId, editText.text.toString())
+                                .enqueue(object : Callback<Void> {
+                                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                                        viewModel._questionStatus.postValue(
+                                            Resource.Error(
+                                                t.message ?: "Network error"
+                                            )
+                                        )
+                                    }
+
+                                    override fun onResponse(
+                                        call: Call<Void>,
+                                        response: Response<Void>
+                                    ) {
+                                        viewModel._questionStatus.postValue(
+                                            Resource.Success(
+                                                "Body omitted"
+                                            )
+                                        )
+                                    }
+                                })
                         }
                         .setNegativeButton(
                             R.string.action_cancel
@@ -152,8 +212,11 @@ class QueueDetailActivity : AppCompatActivity() {
 
         companion object {
 
-            fun newInstance(queueId: Long): AddQuestionDialogFragment {
-                val dialog = AddQuestionDialogFragment()
+            fun newInstance(
+                queueId: Long,
+                viewModel: QueueDetailViewModel
+            ): AddQuestionDialogFragment {
+                val dialog = AddQuestionDialogFragment(viewModel)
                 dialog.arguments = Bundle().also {
                     it.putLong(QUEUE_ID_EXTRA, queueId)
                 }

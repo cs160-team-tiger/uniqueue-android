@@ -18,6 +18,9 @@ class QueueDetailViewModel : ViewModel() {
     private val _queue = MutableLiveData<Resource<Queue>>()
     val queue: LiveData<Resource<Queue>> = _queue
 
+    internal val _questionStatus = MutableLiveData<Resource<String>>()
+    val questionStatus: LiveData<Resource<String>> = _questionStatus
+
     fun getQueue(id: Long) {
         _queue.value = Resource.Loading()
         val disposable = Network.uniqueueService
