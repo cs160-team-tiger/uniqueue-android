@@ -91,7 +91,7 @@ class QueueDetailActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     swipeRefresh.isRefreshing = false
                     addQuestionButon.isVisible = true
-                    updateQuestionList(it.data!!)
+                    updateQuestionList(it.data)
                 }
                 is Resource.Loading -> {
                     swipeRefresh.isRefreshing = true
@@ -144,7 +144,7 @@ class QueueDetailActivity : AppCompatActivity() {
         headerAdapter.setNewData(Collections.singletonList(q))
     }
 
-    private fun updateQuestionList(questions: List<Question>) {
+    private fun updateQuestionList(questions: List<Question>?) {
         questionAdapter.setNewData(questions)
     }
 

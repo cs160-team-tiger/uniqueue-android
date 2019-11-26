@@ -43,7 +43,7 @@ class QueueDetailViewModel : ViewModel() {
             queue.questionIds
         }
         val disposable = Flowable.fromIterable(questionIds)
-            .flatMap {
+            .concatMap {
                 Network.uniqueueService.getQuestionByIdRx(it).toFlowable()
             }
             .toList()
