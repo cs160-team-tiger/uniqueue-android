@@ -4,6 +4,8 @@
     <string name="prompt_calnet_id">CalNet ID</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
+    <string name="action_confirm">Confirm</string>
+    <string name="action_cancel">Cancel</string>
     <string name="action_sign_as_stu">Sign in as student</string>
     <string name="action_sign_as_inst">Sign in as instructor</string>
     <string name="action_sign_in_short">Sign in</string>

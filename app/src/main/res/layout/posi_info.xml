@@ -1,58 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:padding="8dp">
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-
-        <TextView
-            android:id="@+id/position"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="1"
-            android:textColor="#3B7EA1"
-            android:textSize="36sp" />
-
-        <TextView
-            android:id="@+id/text_inProgress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="8dp"
-            android:text="in progress "
-            android:textColor="#859438" />
-    </LinearLayout>
+    android:layout_marginVertical="@dimen/less_padding"
+    android:layout_marginHorizontal="@dimen/common_padding"
+    app:cardCornerRadius="4dp"
+    android:clickable="true"
+    android:foreground="?selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:gravity="center_vertical"
+        android:padding="@dimen/less_padding">
 
-        <TextView
-            android:id="@+id/student_title"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="16dp"
-            android:text="James"
-            android:textColor="#0C0102"
-            android:textSize="23sp" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/text_question"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="1"
+                android:textColor="#3B7EA1"
+                android:textSize="36sp" />
+
+            <TextView
+                android:id="@+id/text_inProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="8dp"
+                android:text="in progress "
+                android:textColor="#859438" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:text="Question 6: Pretty confused what to put into the &quot;having&quot; clause. Why doesn't abs(location) > 2?"
-            android:textSize="15sp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/student_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:text="James"
+                android:textColor="#0C0102"
+                android:textSize="23sp" />
+
+            <TextView
+                android:id="@+id/text_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="8dp"
+                android:text="Question 6: Pretty confused what to put into the &quot;having&quot; clause. Why doesn't abs(location) > 2?"
+                android:textSize="15sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>

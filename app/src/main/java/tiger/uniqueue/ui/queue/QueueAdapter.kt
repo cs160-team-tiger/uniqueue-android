@@ -22,8 +22,8 @@ class QueueAdapter :
                     .truncatedTo(ChronoUnit.MINUTES).toString()
             setText(R.id.locationAndTime, "${item.location} (Started in $timeStr)")
 //            TODO: remove hardcode
-            setText(R.id.position, "3")
-            setText(R.id.waitingTime, "5")
+            setText(R.id.position, item.questionIds.size.toString())
+            setText(R.id.waitingTime, (item.questionIds.size * 3).toString())
         }
     }
 }

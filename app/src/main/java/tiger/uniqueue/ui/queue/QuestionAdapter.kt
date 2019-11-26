@@ -16,6 +16,6 @@ class QuestionAdapter :
             //TODO: remove hard code?
             .setVisible(R.id.text_inProgress, true)
             .setText(R.id.text_question, item.questionText)
-//            .setText(R.id.student_title, "")
+            .setText(R.id.student_title, item.askerUuid?.toString())
     }
 }

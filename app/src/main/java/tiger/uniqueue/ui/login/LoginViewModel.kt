@@ -1,14 +1,14 @@
 package tiger.uniqueue.ui.login
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
-import tiger.uniqueue.data.LoginRepository
-import tiger.uniqueue.data.Result
-
 import tiger.uniqueue.R
+import tiger.uniqueue.data.InMemCache
+import tiger.uniqueue.data.LoginRepository
 import tiger.uniqueue.data.LoginType
+import tiger.uniqueue.data.Result
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -30,8 +30,10 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                         type = result.data.type
                     )
                 )
+            InMemCache.INSTANCE.cache[USER_ID_KEY] = username.toLongOrNull()
         } else {
             _loginResult.value = LoginResult(error = R.string.login_failed)
+            InMemCache.INSTANCE.cache.remove(USER_ID_KEY)
         }
     }
 
@@ -57,5 +59,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     // A placeholder password validation check
     private fun isPasswordValid(password: String): Boolean {
         return password.length > 5
+    }
+
+    companion object {
+        val USER_ID_KEY = "${LoginViewModel::class.java.canonicalName}.userId"
     }
 }
