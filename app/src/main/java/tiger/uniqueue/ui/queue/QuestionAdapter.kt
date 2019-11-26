@@ -12,10 +12,10 @@ class QuestionAdapter :
     override fun convert(helper: BaseViewHolder, item: Question?) {
         item ?: return
         helper
-            .setText(R.id.position, item.id.toString())
+            .setText(R.id.position, item.index.toString())
             //TODO: remove hard code?
             .setVisible(R.id.text_inProgress, true)
             .setText(R.id.text_question, item.questionText)
-            .setText(R.id.student_title, item.askerUuid?.toString())
+            .setText(R.id.student_title, "Student id: ${item.askerUuid}")
     }
 }

@@ -17,4 +17,5 @@ public class Question extends BaseModel {
     public String questionText;
     @SerializedName("queue_id")
     public Long queueId;
+    public Long index = -1L;
 }

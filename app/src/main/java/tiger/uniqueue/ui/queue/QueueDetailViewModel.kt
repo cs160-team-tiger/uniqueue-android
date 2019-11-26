@@ -42,9 +42,13 @@ class QueueDetailViewModel : ViewModel() {
         } else {
             queue.questionIds
         }
+        var index = 0L
         val disposable = Flowable.fromIterable(questionIds)
             .concatMap {
                 Network.uniqueueService.getQuestionByIdRx(it).toFlowable()
+            }
+            .doOnEach { t ->
+                t.value?.index = index++
             }
             .toList()
             .observeOn(AndroidSchedulers.mainThread())
