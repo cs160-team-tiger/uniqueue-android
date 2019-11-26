@@ -22,6 +22,7 @@ import tiger.uniqueue.R
 import tiger.uniqueue.data.InMemCache
 import tiger.uniqueue.data.Network
 import tiger.uniqueue.data.Resource
+import tiger.uniqueue.data.model.BaseModel
 import tiger.uniqueue.data.model.Question
 import tiger.uniqueue.data.model.Queue
 import tiger.uniqueue.onError
@@ -177,8 +178,8 @@ class QueueDetailActivity : AppCompatActivity() {
                             )
                             Network.uniqueueService
                                 .offerQueue(queueId, userId, editText.text.toString())
-                                .enqueue(object : Callback<Void> {
-                                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                                .enqueue(object : Callback<BaseModel> {
+                                    override fun onFailure(call: Call<BaseModel>, t: Throwable) {
                                         viewModel._questionStatus.postValue(
                                             Resource.Error(
                                                 t.message ?: "Network error"
@@ -187,13 +188,21 @@ class QueueDetailActivity : AppCompatActivity() {
                                     }
 
                                     override fun onResponse(
-                                        call: Call<Void>,
-                                        response: Response<Void>
+                                        call: Call<BaseModel>,
+                                        response: Response<BaseModel>
                                     ) {
+                                        val error = response.body()?.error
                                         viewModel._questionStatus.postValue(
-                                            Resource.Success(
-                                                "Body omitted"
-                                            )
+                                            if (error == null) {
+                                                Resource.Success(
+                                                    "Body omitted"
+                                                )
+                                            } else {
+                                                Resource.Error(
+                                                    error
+                                                )
+                                            }
+
                                         )
                                     }
                                 })

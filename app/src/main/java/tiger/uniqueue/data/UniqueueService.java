@@ -9,6 +9,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import tiger.uniqueue.data.model.BaseModel;
 import tiger.uniqueue.data.model.Question;
 import tiger.uniqueue.data.model.Queue;
 import tiger.uniqueue.data.model.User;
@@ -49,6 +50,6 @@ public interface UniqueueService {
 
     @Multipart
     @POST("queue/offer")
-    Call<Void> offerQueue(@Part("queue_id") long queueId, @Part("asker_uuid") long uuid,
-                          @Part("question_text") String questionText);
+    Call<BaseModel> offerQueue(@Part("queue_id") long queueId, @Part("asker_uuid") long uuid,
+                               @Part("question_text") String questionText);
 }
