@@ -14,7 +14,7 @@ class QuestionAdapter :
         helper
             .setText(R.id.position, item.index.toString())
             //TODO: remove hard code?
-            .setVisible(R.id.text_inProgress, true)
+            .setText(R.id.text_inProgress, item.status)
             .setText(R.id.text_question, item.questionText)
             .setText(R.id.student_title, "Student id: ${item.askerUuid}")
     }

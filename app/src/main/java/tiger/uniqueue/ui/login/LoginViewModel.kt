@@ -63,5 +63,6 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     companion object {
         val USER_ID_KEY = "${LoginViewModel::class.java.canonicalName}.userId"
+        val USER_TYPE_KEY = "${LoginViewModel::class.java.canonicalName}.useType"
     }
 }
