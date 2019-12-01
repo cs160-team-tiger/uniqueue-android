@@ -20,6 +20,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import tiger.uniqueue.R
 import tiger.uniqueue.data.InMemCache
+import tiger.uniqueue.data.LoginType
 import tiger.uniqueue.data.Network
 import tiger.uniqueue.data.Resource
 import tiger.uniqueue.data.model.OfferResponse
@@ -59,7 +60,9 @@ class QueueDetailActivity : AppCompatActivity() {
         queueId = intent.getLongExtra(QUEUE_ID_EXTRA, Long.MIN_VALUE)
         fetchQueue()
 
-        headerAdapter = QueueAdapter()
+        val type: LoginType =
+            InMemCache.INSTANCE[LoginViewModel.USER_TYPE_KEY] ?: LoginType.STUDENT
+        headerAdapter = QueueAdapter(type)
         queueHeaderList.adapter = headerAdapter
         queueHeaderList.layoutManager = LinearLayoutManager(this)
 
@@ -162,8 +165,8 @@ class QueueDetailActivity : AppCompatActivity() {
                             R.string.action_confirm
                         ) { dialog, _ ->
                             dialog.dismiss()
-                            val userId =
-                                InMemCache.INSTANCE.cache[LoginViewModel.USER_ID_KEY] as? Long
+                            val userId: Long? =
+                                InMemCache.INSTANCE[LoginViewModel.USER_ID_KEY]
                             if (queueId == null || userId == null) {
                                 viewModel._questionStatus.postValue(
                                     Resource.Error(

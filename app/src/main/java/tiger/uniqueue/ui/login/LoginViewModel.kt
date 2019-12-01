@@ -30,12 +30,12 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                         type = result.data.type
                     )
                 )
-            InMemCache.INSTANCE.cache[USER_ID_KEY] = username.toLongOrNull()
-            InMemCache.INSTANCE.cache[USER_TYPE_KEY] = type
+            InMemCache.INSTANCE[USER_ID_KEY] = username.toLongOrNull()
+            InMemCache.INSTANCE[USER_TYPE_KEY] = type
         } else {
             _loginResult.value = LoginResult(error = R.string.login_failed)
-            InMemCache.INSTANCE.cache.remove(USER_ID_KEY)
-            InMemCache.INSTANCE.cache.remove(USER_TYPE_KEY)
+            InMemCache.INSTANCE[USER_ID_KEY] = null
+            InMemCache.INSTANCE[USER_TYPE_KEY] = null
         }
     }
 

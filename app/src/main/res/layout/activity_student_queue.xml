@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_grey_bg"
-    tools:context=".ui.queue.StudentQueueListActivity">
+    tools:context=".ui.queue.QueueListActivity">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_active_queue_title"

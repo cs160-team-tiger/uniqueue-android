@@ -16,8 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import tiger.uniqueue.R
 import tiger.uniqueue.data.LoginType
 import tiger.uniqueue.startActivity
-import tiger.uniqueue.ui.queue.InstructorQueueListActivity
-import tiger.uniqueue.ui.queue.StudentQueueListActivity
+import tiger.uniqueue.ui.queue.QueueListActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -102,14 +101,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
-        when (model.type) {
-            LoginType.INSTRUCTOR -> {
-                startActivity<InstructorQueueListActivity>()
-            }
-            LoginType.STUDENT -> {
-                startActivity<StudentQueueListActivity>()
-            }
-        }
+        startActivity<QueueListActivity>()
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
