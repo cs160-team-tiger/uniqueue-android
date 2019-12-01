@@ -20,4 +20,7 @@
     <string name="estimated_wait_time_title">Estimated wait time is</string>
     <string name="title_join_the_queue">Join the Queue</string>
     <string name="title_in_position">You will be in position</string>
+    <string name="text_assign">Assign to me</string>
+    <string name="text_helping">Mark as helping</string>
+    <string name="text_helped">Mark as helped</string>
 </resources>

@@ -8,7 +8,7 @@ import tiger.uniqueue.data.model.UserUiConf
 import java.util.*
 
 class QuestionAdapter(private val uiConf: UserUiConf) :
-    BaseQuickAdapter<Question, BaseViewHolder>(R.layout.posi_info, LinkedList()) {
+    BaseQuickAdapter<Question, BaseViewHolder>(uiConf.questionLayoutInd, LinkedList()) {
 
     override fun convert(helper: BaseViewHolder, item: Question?) {
         item ?: return
