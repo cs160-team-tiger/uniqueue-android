@@ -26,6 +26,7 @@ import tiger.uniqueue.data.Resource
 import tiger.uniqueue.data.model.OfferResponse
 import tiger.uniqueue.data.model.Question
 import tiger.uniqueue.data.model.Queue
+import tiger.uniqueue.data.model.UserUiConf
 import tiger.uniqueue.onError
 import tiger.uniqueue.ui.login.LoginViewModel
 import java.util.*
@@ -62,11 +63,11 @@ class QueueDetailActivity : AppCompatActivity() {
 
         val type: LoginType =
             InMemCache.INSTANCE[LoginViewModel.USER_TYPE_KEY] ?: LoginType.STUDENT
-        headerAdapter = QueueAdapter(type)
+        headerAdapter = QueueAdapter(UserUiConf.valueOf(type))
         queueHeaderList.adapter = headerAdapter
         queueHeaderList.layoutManager = LinearLayoutManager(this)
 
-        questionAdapter = QuestionAdapter()
+        questionAdapter = QuestionAdapter(UserUiConf.valueOf(type))
         questionListView.adapter = questionAdapter
         questionListView.layoutManager = LinearLayoutManager(this)
 
