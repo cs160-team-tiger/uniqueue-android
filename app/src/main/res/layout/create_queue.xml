@@ -109,16 +109,16 @@
             android:textColor="#888888"
             android:textSize="18sp" />
 
-<!--        <fragment-->
-<!--            android:id="@+id/map"-->
-<!--            class="com.google.android.gms.maps.SupportMapFragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
+        <!--        <fragment-->
+        <!--            android:id="@+id/map"-->
+        <!--            class="com.google.android.gms.maps.SupportMapFragment"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
 
     </LinearLayout>
 

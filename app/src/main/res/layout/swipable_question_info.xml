@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:contentView="@id/content"
+    app:rightMenuView="@id/menu_swipe">
+
+    <include
+        android:id="@+id/content"
+        layout="@layout/posi_info" />
+
+    <LinearLayout
+        android:id="@+id/menu_swipe"
+        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:layout_width="300dp"
+        android:layout_marginVertical="@dimen/less_padding">
+
+        <Button
+            android:id="@+id/btn_assign"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:drawableTop="@drawable/ic_reply_black_24dp"
+            android:text="@string/text_assign"
+            android:backgroundTint="@color/color_assign"
+            android:layout_weight="1"
+            style="@style/AppTheme.SwipeMenuButton" />
+
+        <Button
+            android:id="@+id/btn_helping"
+            android:drawableTop="@drawable/ic_message_black_24dp"
+            android:text="@string/text_helping"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/color_helping"
+            android:layout_weight="1"
+            style="@style/AppTheme.SwipeMenuButton" />
+
+        <Button
+            android:id="@+id/btn_helped"
+            android:drawableTop="@drawable/ic_done_24dp"
+            android:text="@string/text_helped"
+            android:layout_gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/color_helped"
+            android:layout_weight="1"
+            style="@style/AppTheme.SwipeMenuButton" />
+
+    </LinearLayout>
+</com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout>

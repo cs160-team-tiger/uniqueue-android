@@ -15,20 +15,20 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tiger.uniqueue.R
 import tiger.uniqueue.data.InMemCache
+import tiger.uniqueue.data.LoginType
 import tiger.uniqueue.data.Network
 import tiger.uniqueue.data.Resource
-import tiger.uniqueue.data.model.BaseModel
+import tiger.uniqueue.data.model.OfferResponse
 import tiger.uniqueue.data.model.Question
 import tiger.uniqueue.data.model.Queue
+import tiger.uniqueue.data.model.UserUiConf
 import tiger.uniqueue.onError
 import tiger.uniqueue.ui.login.LoginViewModel
-import tiger.uniqueue.unserialize
 import java.util.*
 
 
@@ -61,16 +61,20 @@ class QueueDetailActivity : AppCompatActivity() {
         queueId = intent.getLongExtra(QUEUE_ID_EXTRA, Long.MIN_VALUE)
         fetchQueue()
 
-        headerAdapter = QueueAdapter()
+        val type: LoginType =
+            InMemCache.INSTANCE[LoginViewModel.USER_TYPE_KEY] ?: LoginType.STUDENT
+        val uiConf = UserUiConf.valueOf(type)
+        headerAdapter = QueueAdapter(uiConf)
         queueHeaderList.adapter = headerAdapter
         queueHeaderList.layoutManager = LinearLayoutManager(this)
 
-        questionAdapter = QuestionAdapter()
+        questionAdapter = QuestionAdapter(uiConf)
         questionListView.adapter = questionAdapter
         questionListView.layoutManager = LinearLayoutManager(this)
 
         swipeRefresh.setOnRefreshListener(this::fetchQueue)
 
+        uiConf.processAddQuestionFab(addQuestionButon)
         addQuestionButon.setOnClickListener {
             openAddQuestionDialog()
         }
@@ -164,8 +168,8 @@ class QueueDetailActivity : AppCompatActivity() {
                             R.string.action_confirm
                         ) { dialog, _ ->
                             dialog.dismiss()
-                            val userId =
-                                InMemCache.INSTANCE.cache[LoginViewModel.USER_ID_KEY] as? Long
+                            val userId: Long? =
+                                InMemCache.INSTANCE[LoginViewModel.USER_ID_KEY]
                             if (queueId == null || userId == null) {
                                 viewModel._questionStatus.postValue(
                                     Resource.Error(
@@ -179,8 +183,11 @@ class QueueDetailActivity : AppCompatActivity() {
                             )
                             Network.uniqueueService
                                 .offerQueue(queueId, userId, editText.text.toString())
-                                .enqueue(object : Callback<ResponseBody> {
-                                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                                .enqueue(object : Callback<OfferResponse> {
+                                    override fun onFailure(
+                                        call: Call<OfferResponse>,
+                                        t: Throwable
+                                    ) {
                                         viewModel._questionStatus.postValue(
                                             Resource.Error(
                                                 t.message ?: "Network error"
@@ -189,8 +196,8 @@ class QueueDetailActivity : AppCompatActivity() {
                                     }
 
                                     override fun onResponse(
-                                        call: Call<ResponseBody>,
-                                        response: Response<ResponseBody>
+                                        call: Call<OfferResponse>,
+                                        response: Response<OfferResponse>
                                     ) {
                                         if (!response.isSuccessful) {
                                             onFailure(
@@ -199,21 +206,16 @@ class QueueDetailActivity : AppCompatActivity() {
                                             )
                                             return
                                         }
-                                        var error: String? = null
-                                        try {
-                                            error =
-                                                unserialize<BaseModel>(response.body()?.string()).error
-                                        } catch (e: Exception) {
 
-                                        }
+                                        val status = response.body()?.status ?: false
                                         viewModel._questionStatus.postValue(
-                                            if (error == null) {
+                                            if (status) {
                                                 Resource.Success(
                                                     "Body omitted"
                                                 )
                                             } else {
                                                 Resource.Error(
-                                                    error
+                                                    "Operation failed."
                                                 )
                                             }
 

@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/question"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="@dimen/less_padding"
@@ -16,6 +17,7 @@
         android:padding="@dimen/less_padding">
 
         <LinearLayout
+            android:id="@+id/menu_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

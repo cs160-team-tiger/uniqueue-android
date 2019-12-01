@@ -2,6 +2,8 @@ package tiger.uniqueue.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Question extends BaseModel {
     @SerializedName("_id")
     public Long id;
@@ -24,8 +26,12 @@ public class Question extends BaseModel {
     @SerializedName("queue_id")
     public Long queueId;
 
+    // one of "incomplete", "assigned", "helping", and "resolved"
     @SerializedName("status")
     public String status;
+
+    @SerializedName("question_attachments")
+    public List<String> questionAttachment;
 
     public transient Long index = -1L;
 }

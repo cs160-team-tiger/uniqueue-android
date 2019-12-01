@@ -9,9 +9,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import butterknife.ButterKnife
 import tiger.uniqueue.R
+import tiger.uniqueue.data.InMemCache
+import tiger.uniqueue.data.LoginType
 import tiger.uniqueue.data.Resource
+import tiger.uniqueue.data.model.UserUiConf
 import tiger.uniqueue.onError
 import tiger.uniqueue.startActivity
+import tiger.uniqueue.ui.login.LoginViewModel
 
 class QueueListActivity : AppCompatActivity() {
 
@@ -30,7 +34,9 @@ class QueueListActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, QueueListViewModelFactory())
             .get(QueueListViewModel::class.java)
 
-        val queueAdapter = QueueAdapter()
+        val type = InMemCache.INSTANCE[LoginViewModel.USER_TYPE_KEY] ?: LoginType.STUDENT
+        val uiConf = UserUiConf.valueOf(type)
+        val queueAdapter = QueueAdapter(uiConf)
         queueList.layoutManager = LinearLayoutManager(this)
         queueList.adapter = queueAdapter
         queueAdapter.setOnItemClickListener { _, view, position ->

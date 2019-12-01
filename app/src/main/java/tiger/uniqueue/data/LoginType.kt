@@ -1,6 +1,8 @@
 package tiger.uniqueue.data
 
-enum class LoginType {
-    STUDENT,
-    INSTRUCTOR
+import tiger.uniqueue.data.model.UserUiConf
+
+enum class LoginType(val uiConf: UserUiConf) {
+    STUDENT(UserUiConf.STUDENT),
+    INSTRUCTOR(UserUiConf.INSTRUCTOR);
 }

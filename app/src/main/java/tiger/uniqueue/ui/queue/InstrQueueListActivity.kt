@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
@@ -14,22 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import butterknife.ButterKnife
-import com.google.android.material.textfield.TextInputEditText
 import tiger.uniqueue.R
-
-import kotlinx.android.synthetic.main.activity_instr_queue_list.*
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import tiger.uniqueue.data.InMemCache
-import tiger.uniqueue.data.Network
+import tiger.uniqueue.data.LoginType
 import tiger.uniqueue.data.Resource
-import tiger.uniqueue.data.model.BaseModel
+import tiger.uniqueue.data.model.UserUiConf
 import tiger.uniqueue.onError
 import tiger.uniqueue.startActivity
 import tiger.uniqueue.ui.login.LoginViewModel
-import tiger.uniqueue.unserialize
 
 class InstrQueueListActivity : AppCompatActivity() {
 
@@ -50,7 +41,10 @@ class InstrQueueListActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, QueueListViewModelFactory())
             .get(QueueListViewModel::class.java)
 
-        val queueAdapter = QueueAdapter()
+
+        val type = InMemCache.INSTANCE[LoginViewModel.USER_TYPE_KEY] ?: LoginType.STUDENT
+        val uiConf = UserUiConf.valueOf(type)
+        val queueAdapter = QueueAdapter(uiConf)
         queueList.layoutManager = LinearLayoutManager(this)
         queueList.adapter = queueAdapter
         queueAdapter.setOnItemClickListener { _, view, position ->
@@ -133,7 +127,7 @@ class InstrQueueListActivity : AppCompatActivity() {
                             R.string.action_confirm
                         ) { dialog, _ ->
                             dialog.dismiss()
-                        // TODO
+                            // TODO
 //                            Network.uniqueueService
 //                                .createQueue(queueId, editTextName.text.toString(), instructor_id, editTextLocation.text.toString(), start_time)
 

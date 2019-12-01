@@ -14,8 +14,8 @@ public class Queue extends BaseModel {
     @SerializedName("is_open")
     public Boolean isOpen;
 
-    @SerializedName("location")
-    public String location;
+    @SerializedName("location_name")
+    public String locationName;
 
     @SerializedName("location_longitude")
     public Double locationLongitude;
@@ -24,7 +24,7 @@ public class Queue extends BaseModel {
     public Double locationLatitude;
 
     @SerializedName("motd")
-    public String motd;
+    public String messageOfTheDay;
 
     @SerializedName("question_ids")
     public List<Long> questionIds;
