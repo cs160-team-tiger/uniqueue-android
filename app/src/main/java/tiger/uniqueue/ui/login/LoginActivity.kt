@@ -1,11 +1,7 @@
 package tiger.uniqueue.ui.login
 
 import android.app.Activity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -13,11 +9,15 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import tiger.uniqueue.ui.queue.QueueListActivity
-
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import tiger.uniqueue.R
 import tiger.uniqueue.data.LoginType
 import tiger.uniqueue.startActivity
+import tiger.uniqueue.ui.queue.InstructorQueueListActivity
+import tiger.uniqueue.ui.queue.StudentQueueListActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -104,10 +104,10 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUiWithUser(model: LoggedInUserView) {
         when (model.type) {
             LoginType.INSTRUCTOR -> {
-                TODO("Add instructor flow")
+                startActivity<InstructorQueueListActivity>()
             }
             LoginType.STUDENT -> {
-                startActivity<QueueListActivity>()
+                startActivity<StudentQueueListActivity>()
             }
         }
     }

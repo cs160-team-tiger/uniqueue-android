@@ -8,7 +8,8 @@ import tiger.uniqueue.R
 import tiger.uniqueue.data.LoginType
 import tiger.uniqueue.startActivity
 import tiger.uniqueue.ui.login.LoginActivity
-import tiger.uniqueue.ui.queue.QueueListActivity
+import tiger.uniqueue.ui.queue.InstructorQueueListActivity
+import tiger.uniqueue.ui.queue.StudentQueueListActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -25,8 +26,8 @@ class SplashActivity : AppCompatActivity() {
 
     private fun navigateToNext() {
         val activityClazz: Class<out Activity> = when (checkLogin()) {
-            LoginType.STUDENT -> QueueListActivity::class.java
-            LoginType.INSTRUCTOR -> LoginActivity::class.java
+            LoginType.STUDENT -> StudentQueueListActivity::class.java
+            LoginType.INSTRUCTOR -> InstructorQueueListActivity::class.java
             null -> LoginActivity::class.java
         }
         startActivity(activityClazz)

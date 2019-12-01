@@ -13,7 +13,7 @@ import tiger.uniqueue.data.Resource
 import tiger.uniqueue.onError
 import tiger.uniqueue.startActivity
 
-class QueueListActivity : AppCompatActivity() {
+class StudentQueueListActivity : AppCompatActivity() {
 
     @BindView(R.id.rv_queue_list)
     lateinit var queueList: RecyclerView
