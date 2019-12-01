@@ -63,16 +63,18 @@ class QueueDetailActivity : AppCompatActivity() {
 
         val type: LoginType =
             InMemCache.INSTANCE[LoginViewModel.USER_TYPE_KEY] ?: LoginType.STUDENT
-        headerAdapter = QueueAdapter(UserUiConf.valueOf(type))
+        val uiConf = UserUiConf.valueOf(type)
+        headerAdapter = QueueAdapter(uiConf)
         queueHeaderList.adapter = headerAdapter
         queueHeaderList.layoutManager = LinearLayoutManager(this)
 
-        questionAdapter = QuestionAdapter(UserUiConf.valueOf(type))
+        questionAdapter = QuestionAdapter(uiConf)
         questionListView.adapter = questionAdapter
         questionListView.layoutManager = LinearLayoutManager(this)
 
         swipeRefresh.setOnRefreshListener(this::fetchQueue)
 
+        uiConf.processAddQuestionFab(addQuestionButon)
         addQuestionButon.setOnClickListener {
             openAddQuestionDialog()
         }

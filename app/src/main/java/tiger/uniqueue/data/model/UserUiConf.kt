@@ -1,29 +1,26 @@
 package tiger.uniqueue.data.model
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import tiger.uniqueue.data.LoginType
 
 enum class UserUiConf {
     STUDENT {
-        override val shouldShowFab: Boolean
-            get() = true
-        override val shouldShowQueueMenu: Boolean
-            get() = false
+        override val shouldShowQueueMenu: Boolean = false
+
     },
     INSTRUCTOR {
-        override val shouldShowFab: Boolean
-            get() = false
-        override val shouldShowQueueMenu: Boolean
-            get() = true
+        override val questionSwipable: Boolean = true
+        override fun processAddQuestionFab(fab: FloatingActionButton) {
+            fab.hide()
+        }
     };
 
-    abstract val shouldShowQueueMenu: Boolean
-    abstract val shouldShowFab: Boolean
+    open val shouldShowQueueMenu: Boolean = true
+    open fun processAddQuestionFab(fab: FloatingActionButton) {}
+    open val questionSwipable: Boolean = false
 
     companion object {
         fun valueOf(type: LoginType) =
-            when (type) {
-                LoginType.INSTRUCTOR -> INSTRUCTOR
-                LoginType.STUDENT -> STUDENT
-            }
+            type.uiConf
     }
 }

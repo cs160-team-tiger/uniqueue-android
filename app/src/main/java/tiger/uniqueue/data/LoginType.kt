@@ -1,14 +1,8 @@
 package tiger.uniqueue.data
 
-enum class LoginType {
-    STUDENT {
-        override val shouldShowQueueMenu: Boolean
-            get() = false
-    },
-    INSTRUCTOR {
-        override val shouldShowQueueMenu: Boolean
-            get() = true
-    };
+import tiger.uniqueue.data.model.UserUiConf
 
-    abstract val shouldShowQueueMenu: Boolean
+enum class LoginType(val uiConf: UserUiConf) {
+    STUDENT(UserUiConf.STUDENT),
+    INSTRUCTOR(UserUiConf.INSTRUCTOR);
 }

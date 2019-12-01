@@ -12,6 +12,7 @@ import tiger.uniqueue.R
 import tiger.uniqueue.data.InMemCache
 import tiger.uniqueue.data.LoginType
 import tiger.uniqueue.data.Resource
+import tiger.uniqueue.data.model.UserUiConf
 import tiger.uniqueue.onError
 import tiger.uniqueue.startActivity
 import tiger.uniqueue.ui.login.LoginViewModel
@@ -34,7 +35,8 @@ class QueueListActivity : AppCompatActivity() {
             .get(QueueListViewModel::class.java)
 
         val type = InMemCache.INSTANCE[LoginViewModel.USER_TYPE_KEY] ?: LoginType.STUDENT
-        val queueAdapter = QueueAdapter(type)
+        val uiConf = UserUiConf.valueOf(type)
+        val queueAdapter = QueueAdapter(uiConf)
         queueList.layoutManager = LinearLayoutManager(this)
         queueList.adapter = queueAdapter
         queueAdapter.setOnItemClickListener { _, view, position ->
