@@ -3,13 +3,14 @@ package tiger.uniqueue.ui.queue
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import tiger.uniqueue.R
+import tiger.uniqueue.data.LoginType
 import tiger.uniqueue.data.model.Queue
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
 import java.time.temporal.ChronoUnit
 import java.util.*
 
-class QueueAdapter :
+class QueueAdapter(private val type: LoginType) :
     BaseQuickAdapter<Queue, BaseViewHolder>(
         R.layout.q_info,
         LinkedList()
@@ -24,6 +25,7 @@ class QueueAdapter :
 //            TODO: remove hardcode
             setText(R.id.position, item.questionIds.size.toString())
             setText(R.id.waitingTime, (item.questionIds.size * 3).toString())
+            setVisible(R.id.menu_header, type == LoginType.INSTRUCTOR)
         }
     }
 }
