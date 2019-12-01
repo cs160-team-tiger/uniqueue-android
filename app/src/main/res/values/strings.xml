@@ -20,4 +20,8 @@
     <string name="estimated_wait_time_title">Estimated wait time is</string>
     <string name="title_join_the_queue">Join the Queue</string>
     <string name="title_in_position">You will be in position</string>
+    <string name="title_activity_instr_queue_list">InstrQueueListActivity</string>
+    <string name="createQueueButton">Create a new Queue</string>
+    <string name="enter_queue_name">eg: CS61A - David\'s OH</string>
+    <string name="enter_queue_location">eg: Cory 241</string>
 </resources>

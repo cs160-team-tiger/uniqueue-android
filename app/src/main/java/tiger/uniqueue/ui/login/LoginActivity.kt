@@ -18,6 +18,7 @@ import tiger.uniqueue.ui.queue.QueueListActivity
 import tiger.uniqueue.R
 import tiger.uniqueue.data.LoginType
 import tiger.uniqueue.startActivity
+import tiger.uniqueue.ui.queue.InstrQueueListActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -104,7 +105,8 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUiWithUser(model: LoggedInUserView) {
         when (model.type) {
             LoginType.INSTRUCTOR -> {
-                TODO("Add instructor flow")
+                // TODO("Add instructor flow") Done
+                startActivity<InstrQueueListActivity>()
             }
             LoginType.STUDENT -> {
                 startActivity<QueueListActivity>()
