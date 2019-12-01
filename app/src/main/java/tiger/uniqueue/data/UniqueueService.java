@@ -52,4 +52,9 @@ public interface UniqueueService {
     @POST("queue/offer")
     Call<OfferResponse> offerQueue(@Part("queue_id") long queueId, @Part("asker_uuid") long uuid,
                                    @Part("question_text") String questionText);
+
+    // TODO @POST("") create queue
+//    Call<ResponseBody> createQueue(@Part("queue_id") long queueId, @Part("queue_name") String queueName,
+//                                  @Part("instructor_id") long instrId, @Part("location_name") String locationName,
+//                                   @Part("start_time") String startTime);
 }

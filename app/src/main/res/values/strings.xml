@@ -23,4 +23,8 @@
     <string name="text_assign">Assign to me</string>
     <string name="text_helping">Mark as helping</string>
     <string name="text_helped">Mark as helped</string>
+    <string name="title_activity_instr_queue_list">InstrQueueListActivity</string>
+    <string name="createQueueButton">Create a new Queue</string>
+    <string name="enter_queue_name">eg: CS61A - David\'s OH</string>
+    <string name="enter_queue_location">eg: Cory 241</string>
 </resources>
