@@ -24,7 +24,7 @@ class QueueAdapter(private val uiConf: UserUiConf) :
             setText(R.id.locationAndTime, "${item.locationName} (Started in $timeStr)")
             setText(R.id.position, item.questionIds.size.toString())
             setText(R.id.waitingTime, (item.questionIds.size * 3).toString())
-            setGone(R.id.menu_header, uiConf.shouldShowQueueMenu)
+            setGone(R.id.menu_header, uiConf.showQueueMenu)
         }
     }
 }
