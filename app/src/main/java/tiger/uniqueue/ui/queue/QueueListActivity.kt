@@ -12,9 +12,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import tiger.uniqueue.R
 import tiger.uniqueue.data.InMemCache
 import tiger.uniqueue.data.LoginType
+import tiger.uniqueue.data.Network
 import tiger.uniqueue.data.Resource
 import tiger.uniqueue.data.model.UserUiConf
 import tiger.uniqueue.onError
+import tiger.uniqueue.openDialogFragment
 import tiger.uniqueue.startActivity
 import tiger.uniqueue.ui.login.LoginViewModel
 
@@ -52,6 +54,12 @@ class QueueListActivity : AppCompatActivity() {
 
         if (uiConf.showAddQueueFab) {
             addQueueFab.show()
+            addQueueFab.setOnClickListener {
+                val newFragment =
+                    uiConf.showAddQueueDialog(viewModel, Network.uniqueueService)
+                        ?: return@setOnClickListener
+                openDialogFragment(newFragment)
+            }
         }
 
         swipeLayout.setOnRefreshListener {

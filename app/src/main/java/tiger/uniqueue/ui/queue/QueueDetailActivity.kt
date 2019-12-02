@@ -20,6 +20,7 @@ import tiger.uniqueue.data.model.Question
 import tiger.uniqueue.data.model.Queue
 import tiger.uniqueue.data.model.UserUiConf
 import tiger.uniqueue.onError
+import tiger.uniqueue.openDialogFragment
 import tiger.uniqueue.ui.login.LoginViewModel
 import java.util.*
 
@@ -69,10 +70,14 @@ class QueueDetailActivity : AppCompatActivity() {
 
         if (uiConf.showAddQuestionFab) {
             addQuestionButon.show()
+            addQuestionButon.setOnClickListener {
+                val newFragment =
+                    uiConf.showAddQuestionDialog(queueId, viewModel, Network.uniqueueService)
+                        ?: return@setOnClickListener
+                openDialogFragment(newFragment)
+            }
         }
-        addQuestionButon.setOnClickListener {
-            openAddQuestionDialog()
-        }
+
 
         viewModel.queue.observe(this, Observer {
             when (it) {
@@ -118,19 +123,6 @@ class QueueDetailActivity : AppCompatActivity() {
             }
         })
 
-    }
-
-    private fun openAddQuestionDialog() {
-        val newFragment =
-            uiConf.showAddQuestionDialog(queueId, viewModel, Network.uniqueueService)
-                ?: return
-        val ft = supportFragmentManager.beginTransaction()
-        val prev = supportFragmentManager.findFragmentByTag("dialog")
-        if (prev != null) {
-            ft.remove(prev)
-        }
-        ft.addToBackStack(null)
-        newFragment.show(ft, "dialog")
     }
 
     private fun fetchQueue() {
