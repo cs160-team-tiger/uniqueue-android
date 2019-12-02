@@ -12,7 +12,7 @@ import java.util.*
 
 class QueueAdapter(private val uiConf: UserUiConf) :
     BaseQuickAdapter<Queue, BaseViewHolder>(
-        R.layout.q_info,
+        R.layout.queue_item,
         LinkedList()
     ) {
     override fun convert(helper: BaseViewHolder, item: Queue) {

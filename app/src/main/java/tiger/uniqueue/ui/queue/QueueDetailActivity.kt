@@ -11,6 +11,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import tiger.uniqueue.R
 import tiger.uniqueue.data.InMemCache
 import tiger.uniqueue.data.LoginType
@@ -47,13 +50,21 @@ class QueueDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_queue_detail)
+        initVars()
+        setupListeners()
+        setupObservers()
+        refreshQueue()
+    }
+
+    private fun initVars() {
         ButterKnife.bind(this)
 
         viewModel = ViewModelProviders.of(this)
             .get(QueueDetailViewModel::class.java)
         queueId = intent.getLongExtra(QUEUE_ID_EXTRA, Long.MIN_VALUE)
+        val uuid: Long = InMemCache.INSTANCE[LoginViewModel.USER_ID_KEY]!!
+
         viewModel.queueId = queueId
-        fetchQueue()
 
         val type: LoginType =
             InMemCache.INSTANCE[LoginViewModel.USER_TYPE_KEY] ?: LoginType.STUDENT
@@ -62,11 +73,22 @@ class QueueDetailActivity : AppCompatActivity() {
         queueHeaderList.adapter = headerAdapter
         queueHeaderList.layoutManager = LinearLayoutManager(this)
 
-        questionAdapter = QuestionAdapter(uiConf)
+        questionAdapter = QuestionAdapter(uiConf, uuid, object : Callback<Question> {
+            override fun onFailure(call: Call<Question>, t: Throwable) {
+                onError(t.message)
+            }
+
+            override fun onResponse(call: Call<Question>, response: Response<Question>) {
+                refreshQueue()
+            }
+        })
         questionListView.adapter = questionAdapter
         questionListView.layoutManager = LinearLayoutManager(this)
+    }
 
-        swipeRefresh.setOnRefreshListener(this::fetchQueue)
+    private fun setupListeners() {
+
+        swipeRefresh.setOnRefreshListener(this::refreshQueue)
 
         if (uiConf.showAddQuestionFab) {
             addQuestionButon.show()
@@ -77,8 +99,9 @@ class QueueDetailActivity : AppCompatActivity() {
                 openDialogFragment(newFragment)
             }
         }
+    }
 
-
+    private fun setupObservers() {
         viewModel.queue.observe(this, Observer {
             when (it) {
                 is Resource.Success -> {
@@ -112,7 +135,7 @@ class QueueDetailActivity : AppCompatActivity() {
         viewModel.addStatus.observe(this, Observer {
             when (it) {
                 is Resource.Success -> {
-                    fetchQueue()
+                    refreshQueue()
                 }
                 is Resource.Loading -> {
                 }
@@ -122,10 +145,9 @@ class QueueDetailActivity : AppCompatActivity() {
                 }
             }
         })
-
     }
 
-    private fun fetchQueue() {
+    private fun refreshQueue() {
         viewModel.refresh()
     }
 

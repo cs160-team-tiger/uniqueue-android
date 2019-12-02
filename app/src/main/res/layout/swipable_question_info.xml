@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/content"
-        layout="@layout/posi_info" />
+        layout="@layout/quesition_item" />
 
     <LinearLayout
         android:id="@+id/menu_swipe"
@@ -20,6 +20,7 @@
 
         <Button
             android:id="@+id/btn_assign"
+            android:tag="ASSIGN"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:drawableTop="@drawable/ic_reply_black_24dp"
@@ -30,6 +31,7 @@
 
         <Button
             android:id="@+id/btn_helping"
+            android:tag="HELPING"
             android:drawableTop="@drawable/ic_message_black_24dp"
             android:text="@string/text_helping"
             android:layout_width="0dp"
@@ -40,6 +42,7 @@
 
         <Button
             android:id="@+id/btn_helped"
+            android:tag="RESOLVED"
             android:drawableTop="@drawable/ic_done_24dp"
             android:text="@string/text_helped"
             android:layout_gravity="center_vertical"
