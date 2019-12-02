@@ -33,6 +33,15 @@ public interface UniqueueService {
     @GET("questions/fetchbyid")
     Call<Question> getQuestionById(@Query("id") long id);
 
+    @POST("questions/assigninstructor")
+    Call<Question> assign(@Query("id") long id, @Query("instructor_uuid") long instUuid);
+
+    @POST("questions/markhelping")
+    Call<Question> markHelping(@Query("id") long id, @Query("instructor_uuid") long instUuid);
+
+    @POST("questions/markresolved")
+    Call<Question> markResolved(@Query("id") long id, @Query("instructor_uuid") long instUuid);
+
     @GET("questions/fetchbyid")
     Single<Question> getQuestionByIdRx(@Query("id") long id);
 
