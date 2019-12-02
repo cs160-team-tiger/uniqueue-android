@@ -92,6 +92,6 @@ class QueueListActivity : AppCompatActivity() {
     }
 
     private fun refreshData() {
-        viewModel.fetchQueueInfo()
+        viewModel.refresh()
     }
 }

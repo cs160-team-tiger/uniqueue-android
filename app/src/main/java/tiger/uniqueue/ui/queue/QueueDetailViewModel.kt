@@ -11,20 +11,30 @@ import tiger.uniqueue.data.model.Question
 import tiger.uniqueue.data.model.Queue
 import java.util.*
 
-class QueueDetailViewModel : ViewModel() {
+class QueueDetailViewModel() : ViewModel(), IRefreshable, IAddStatus {
     private val _questions = MutableLiveData<Resource<List<Question>>>()
     val questions: LiveData<Resource<List<Question>>> = _questions
 
     private val _queue = MutableLiveData<Resource<Queue>>()
     val queue: LiveData<Resource<Queue>> = _queue
 
-    internal val _questionStatus = MutableLiveData<Resource<String>>()
-    val questionStatus: LiveData<Resource<String>> = _questionStatus
+    private val _addStatus = MutableLiveData<Resource<String>>()
+    override val addStatus: LiveData<Resource<String>> = _addStatus
 
-    fun getQueue(id: Long) {
+    var queueId: Long = Long.MIN_VALUE
+
+    override fun updateStatus(status: Resource<String>) {
+        _addStatus.postValue(status)
+    }
+
+    override fun refresh() {
         _queue.value = Resource.Loading()
+        if (queueId == Long.MIN_VALUE) {
+            _queue.value = Resource.Error("queueId not init")
+            return
+        }
         val disposable = Network.uniqueueService
-            .getQueueByIdRx(id)
+            .getQueueByIdRx(queueId)
             .doOnSuccess(this::loadQuestion)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
