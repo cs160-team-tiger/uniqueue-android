@@ -2,6 +2,7 @@ package tiger.uniqueue.ui.queue
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -66,9 +67,13 @@ class QueueListActivity : AppCompatActivity() {
             refreshData()
         }
 
+        registerObservers(queueAdapter)
+    }
+
+    private fun registerObservers(queueAdapter: QueueAdapter) {
         viewModel.activeQueues.observe(
             this,
-            androidx.lifecycle.Observer { t ->
+            Observer { t ->
                 when (t) {
                     is Resource.Success -> {
                         swipeLayout.isRefreshing = false
@@ -83,13 +88,25 @@ class QueueListActivity : AppCompatActivity() {
                     }
                 }
             })
-        viewModel.selectedQueue.observe(this, androidx.lifecycle.Observer { q ->
+        viewModel.selectedQueue.observe(this, Observer { q ->
             val selected = q ?: return@Observer
             startActivity<QueueDetailActivity> {
                 it.putExtra(
                     QueueDetailActivity.QUEUE_ID_EXTRA,
                     selected.id
                 )
+            }
+        })
+        viewModel.addStatus.observe(this, Observer { t ->
+            when (t) {
+                is Resource.Success -> {
+                    refreshData()
+                }
+                is Resource.Loading -> {
+                }
+                is Resource.Error -> {
+                    onError(t.message)
+                }
             }
         })
     }

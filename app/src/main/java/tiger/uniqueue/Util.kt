@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import tiger.uniqueue.data.UniqueueService
 
 
 inline fun <reified T : Activity> Context.startActivity(noinline intentInitializer: ((Intent) -> Unit)? = null) {
@@ -40,3 +41,12 @@ fun AppCompatActivity.openDialogFragment(newFragment: DialogFragment) {
     ft.addToBackStack(null)
     newFragment.show(ft, "dialog")
 }
+
+fun UniqueueService.createQueue(
+    queueName: String,
+    instrId: Long,
+    locationName: String
+) =
+    createQueue(
+        queueName, instrId, locationName, true, "", 0.0, 0.0
+    )

@@ -57,13 +57,20 @@ public interface UniqueueService {
     @GET("queue/peek")
     Call<Long> peekQueue(@Query("id") long uuid);
 
-    @Multipart
     @POST("queue/offer")
+    @Multipart
     Call<OfferResponse> offerQueue(@Part("queue_id") long queueId, @Part("asker_uuid") long uuid,
                                    @Part("question_text") String questionText);
 
-    // TODO @POST("") create queue
-//    Call<ResponseBody> createQueue(@Part("queue_id") long queueId, @Part("queue_name") String queueName,
-//                                  @Part("instructor_id") long instrId, @Part("location_name") String locationName,
-//                                   @Part("start_time") String startTime);
+    @POST("queue/create")
+    @Multipart
+    Call<Queue> createQueue(
+            @Part("queue_name") String queueName,
+            @Part("instructor_id") long instrId,
+            @Part("location_name") String locationName,
+            @Part("is_open") boolean isOpen,
+            @Part("motd") String motd,
+            @Part("location_latitude") double lat,
+            @Part("location_longitude") double lng
+    );
 }

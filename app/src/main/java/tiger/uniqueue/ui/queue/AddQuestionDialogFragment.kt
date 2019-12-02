@@ -2,7 +2,6 @@ package tiger.uniqueue.ui.queue
 
 import android.app.Dialog
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
@@ -73,7 +72,7 @@ class AddQuestionDialogFragment(
                                     if (!response.isSuccessful) {
                                         onFailure(
                                             call,
-                                            java.lang.Exception("Network error with code: ${response.code()}")
+                                            Exception("Network error with code: ${response.code()}")
                                         )
                                         return
                                     }
