@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import tiger.uniqueue.R
 import tiger.uniqueue.data.InMemCache
 import tiger.uniqueue.data.LoginType
+import tiger.uniqueue.data.Network
 import tiger.uniqueue.data.Resource
 import tiger.uniqueue.data.model.UserUiConf
 import tiger.uniqueue.onError
+import tiger.uniqueue.openDialogFragment
 import tiger.uniqueue.startActivity
 import tiger.uniqueue.ui.login.LoginViewModel
 
@@ -23,12 +26,14 @@ class QueueListActivity : AppCompatActivity() {
     lateinit var queueList: RecyclerView
     @BindView(R.id.swiperefresh)
     lateinit var swipeLayout: SwipeRefreshLayout
+    @BindView(R.id.fab_add)
+    lateinit var addQueueFab: FloatingActionButton
 
     private lateinit var viewModel: QueueListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_student_queue)
+        setContentView(R.layout.activity_queue_list)
         ButterKnife.bind(this)
 
         viewModel = ViewModelProviders.of(this, QueueListViewModelFactory())
@@ -45,6 +50,16 @@ class QueueListActivity : AppCompatActivity() {
                     position
                 )
             )
+        }
+
+        if (uiConf.showAddQueueFab) {
+            addQueueFab.show()
+            addQueueFab.setOnClickListener {
+                val newFragment =
+                    uiConf.showAddQueueDialog(viewModel, Network.uniqueueService)
+                        ?: return@setOnClickListener
+                openDialogFragment(newFragment)
+            }
         }
 
         swipeLayout.setOnRefreshListener {
@@ -85,6 +100,6 @@ class QueueListActivity : AppCompatActivity() {
     }
 
     private fun refreshData() {
-        viewModel.fetchQueueInfo()
+        viewModel.refresh()
     }
 }

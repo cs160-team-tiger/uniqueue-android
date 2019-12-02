@@ -3,6 +3,8 @@ package tiger.uniqueue
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 
@@ -27,4 +29,14 @@ fun Activity.onError(msg: CharSequence?, length: Int = Snackbar.LENGTH_LONG) {
 val gson = Gson()
 inline fun <reified T> unserialize(str: String?): T {
     return gson.fromJson<T>(str, T::class.java)
+}
+
+fun AppCompatActivity.openDialogFragment(newFragment: DialogFragment) {
+    val ft = supportFragmentManager.beginTransaction()
+    val prev = supportFragmentManager.findFragmentByTag("dialog")
+    if (prev != null) {
+        ft.remove(prev)
+    }
+    ft.addToBackStack(null)
+    newFragment.show(ft, "dialog")
 }
