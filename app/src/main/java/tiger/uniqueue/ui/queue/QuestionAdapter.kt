@@ -4,6 +4,7 @@ import android.widget.LinearLayout
 import androidx.core.view.children
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout
 import retrofit2.Callback
 import tiger.uniqueue.R
 import tiger.uniqueue.data.model.Question
@@ -27,10 +28,12 @@ class QuestionAdapter(
             .setText(R.id.student_title, "Student id: ${item.askerUuid}")
         if (uiConf.questionSwipable) {
             val menu = helper.getView<LinearLayout>(R.id.menu_swipe)
+            val menuLayout = helper.getView<EasySwipeMenuLayout>(R.id.swipe_menu_layout)
             menu.children.iterator().forEach {
                 it.setOnClickListener {
                     QuestionAction.valueOf(it.tag as String).markToBackend(item.id, uuid)
                         .enqueue(questionActionCallback)
+                    menuLayout.resetStatus()
                 }
             }
         }

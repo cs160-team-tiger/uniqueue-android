@@ -79,7 +79,12 @@ class QueueDetailActivity : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<Question>, response: Response<Question>) {
-                refreshQueue()
+                val error = response.body()?.error
+                if (error != null) {
+                    onFailure(call, Exception(error))
+                } else {
+                    refreshQueue()
+                }
             }
         })
         questionListView.adapter = questionAdapter
