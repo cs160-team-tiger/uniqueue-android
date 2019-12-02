@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import tiger.uniqueue.R
 import tiger.uniqueue.data.InMemCache
 import tiger.uniqueue.data.LoginType
@@ -23,12 +24,14 @@ class QueueListActivity : AppCompatActivity() {
     lateinit var queueList: RecyclerView
     @BindView(R.id.swiperefresh)
     lateinit var swipeLayout: SwipeRefreshLayout
+    @BindView(R.id.fab_add)
+    lateinit var addQueueFab: FloatingActionButton
 
     private lateinit var viewModel: QueueListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_student_queue)
+        setContentView(R.layout.activity_queue_list)
         ButterKnife.bind(this)
 
         viewModel = ViewModelProviders.of(this, QueueListViewModelFactory())
@@ -45,6 +48,10 @@ class QueueListActivity : AppCompatActivity() {
                     position
                 )
             )
+        }
+
+        if (uiConf.showAddQueueFab) {
+            addQueueFab.show()
         }
 
         swipeLayout.setOnRefreshListener {

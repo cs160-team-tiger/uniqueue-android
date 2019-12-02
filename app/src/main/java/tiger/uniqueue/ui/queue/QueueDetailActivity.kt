@@ -74,7 +74,9 @@ class QueueDetailActivity : AppCompatActivity() {
 
         swipeRefresh.setOnRefreshListener(this::fetchQueue)
 
-        uiConf.processAddQuestionFab(addQuestionButon)
+        if (uiConf.showAddQuestionFab) {
+            addQuestionButon.show()
+        }
         addQuestionButon.setOnClickListener {
             openAddQuestionDialog()
         }
