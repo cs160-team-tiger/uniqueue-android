@@ -27,13 +27,12 @@
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
         <TextView
-            android:id="@+id/position"
+            android:id="@+id/join_queue_position"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_padding"
-            android:layout_marginTop="14sp"
-            android:text="@string/title_in_position"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/title_in_position" />
 
         <TextView
             android:id="@+id/time"

@@ -2,6 +2,7 @@ package tiger.uniqueue.ui.queue
 
 import android.app.Dialog
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
@@ -29,6 +30,9 @@ class AddQuestionDialogFragment(
                 val editText = view.findViewById<TextInputEditText>(
                     R.id.et_question
                 )
+                // TODO modify text
+//                setText(R.id.join_queue_position, )
+//                setText(R.id.time, )
                 setView(view)
                     .setPositiveButton(
                         R.string.action_confirm
