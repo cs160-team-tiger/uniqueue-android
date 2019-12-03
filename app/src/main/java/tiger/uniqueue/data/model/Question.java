@@ -40,7 +40,7 @@ public class Question extends BaseModel {
     public String status;
 
     @SerializedName("question_attachments")
-    public List<String> questionAttachment;
+    public String questionAttachment;
 
     public transient Long index = -1L;
 }
