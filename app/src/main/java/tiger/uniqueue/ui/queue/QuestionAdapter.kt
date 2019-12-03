@@ -25,7 +25,7 @@ class QuestionAdapter(
             .setText(R.id.position, item.index.toString())
             .setText(R.id.text_inProgress, item.status)
             .setText(R.id.text_question, item.questionText)
-            .setText(R.id.student_title, "Student id: ${item.askerUuid}")
+            .setText(R.id.student_title, "${item.askerName}")
         if (uiConf.questionSwipable) {
             val menu = helper.getView<LinearLayout>(R.id.menu_swipe)
             val menuLayout = helper.getView<EasySwipeMenuLayout>(R.id.swipe_menu_layout)

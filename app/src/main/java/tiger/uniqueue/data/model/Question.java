@@ -11,11 +11,20 @@ public class Question extends BaseModel {
     @SerializedName("answered_uuid")
     public Long answeredUuid;
 
+    @SerializedName("answered_name")
+    public String answeredName;
+
     @SerializedName("asker_uuid")
     public Long askerUuid;
 
+    @SerializedName("asker_name")
+    public String askerName;
+
     @SerializedName("assigned_uuid")
     public Long assignedUuid;
+
+    @SerializedName("assigned_name")
+    public String assignedName;
 
     @SerializedName("creation_time")
     public Long creationTime;
