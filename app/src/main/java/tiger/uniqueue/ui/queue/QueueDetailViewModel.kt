@@ -9,7 +9,6 @@ import tiger.uniqueue.data.Network
 import tiger.uniqueue.data.Resource
 import tiger.uniqueue.data.model.Question
 import tiger.uniqueue.data.model.Queue
-import java.util.*
 
 class QueueDetailViewModel() : ViewModel(), IRefreshable, IAddStatus {
     private val _questions = MutableLiveData<Resource<List<Question>>>()
@@ -46,12 +45,9 @@ class QueueDetailViewModel() : ViewModel(), IRefreshable, IAddStatus {
 
     private fun loadQuestion(queue: Queue) {
         _questions.postValue(Resource.Loading())
-        //        TODO: remove this debug
-        val questionIds = if (queue.questionIds.isEmpty()) {
-            Collections.singletonList(101L)
-        } else {
+        val questionIds =
             queue.questionIds
-        }
+
         var index = 1L
         val disposable = Flowable.fromIterable(questionIds)
             .concatMap {
