@@ -161,7 +161,7 @@ class QueueDetailActivity : AppCompatActivity() {
     }
 
     private fun updateQuestionList(questions: List<Question>?) {
-        questionAdapter.setNewData(questions)
+        questionAdapter.setNewData(questions?.filter { it.status != "resolved" })
     }
 
     companion object {
