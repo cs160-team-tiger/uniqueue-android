@@ -119,11 +119,18 @@ class QueueDetailActivity : AppCompatActivity() {
             }
         })
 
-        viewModel.questions.observe(this, Observer {
+        viewModel.unresolvedQuestions.observe(this, Observer {
             when (it) {
                 is Resource.Success -> {
                     swipeRefresh.isRefreshing = false
-                    updateQuestionList(it.data)
+                    val unresolvedQuestions = it.data
+                    updateQuestionList(unresolvedQuestions)
+//                    HACK WARNING: VIOLATING SINGLE SOURCE OF TRUTH TO AVOID LOOP REFRESHING
+                    val queue = viewModel.queue.value?.data
+                    if (queue != null) {
+                        queue.questionIds = unresolvedQuestions?.map { q -> q.id }?.toList()
+                        updateQueueView(queue)
+                    }
                 }
                 is Resource.Loading -> {
                     swipeRefresh.isRefreshing = true
@@ -159,7 +166,7 @@ class QueueDetailActivity : AppCompatActivity() {
     }
 
     private fun updateQuestionList(questions: List<Question>?) {
-        questionAdapter.setNewData(questions?.filter { it.status != "resolved" })
+        questionAdapter.setNewData(questions)
     }
 
     companion object {

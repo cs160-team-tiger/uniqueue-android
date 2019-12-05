@@ -12,7 +12,7 @@ import tiger.uniqueue.data.model.Queue
 
 class QueueDetailViewModel() : ViewModel(), IRefreshable, IAddStatus {
     private val _questions = MutableLiveData<Resource<List<Question>>>()
-    val questions: LiveData<Resource<List<Question>>> = _questions
+    val unresolvedQuestions: LiveData<Resource<List<Question>>> = _questions
 
     private val _queue = MutableLiveData<Resource<Queue>>()
     val queue: LiveData<Resource<Queue>> = _queue
@@ -34,7 +34,7 @@ class QueueDetailViewModel() : ViewModel(), IRefreshable, IAddStatus {
         }
         val disposable = Network.uniqueueService
             .getQueueByIdRx(queueId)
-            .doOnSuccess(this::loadQuestion)
+            .doOnSuccess(this::loadUnresolvedQuestion)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _queue.postValue(Resource.Success(it))
@@ -43,19 +43,17 @@ class QueueDetailViewModel() : ViewModel(), IRefreshable, IAddStatus {
             )
     }
 
-    private fun loadQuestion(queue: Queue) {
+    private fun loadUnresolvedQuestion(queue: Queue) {
         _questions.postValue(Resource.Loading())
         val questionIds =
             queue.questionIds
 
-        var index = 1L
         val disposable = Flowable.fromIterable(questionIds)
             .concatMap {
                 Network.uniqueueService.getQuestionByIdRx(it).toFlowable()
             }
-            .doOnNext { t ->
-                t.index = index++
-            }
+
+            .filter { it.status != "resolved" }
             .toList()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
