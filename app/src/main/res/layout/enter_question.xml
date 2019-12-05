@@ -26,22 +26,6 @@
             android:layout_marginStart="@dimen/common_padding"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-        <TextView
-            android:id="@+id/join_queue_position"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_padding"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/title_in_position" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_padding"
-            android:text="@string/estimated_wait_time_title"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
