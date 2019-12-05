@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.view.children
 import com.bumptech.glide.Glide
+import com.ceylonlabs.imageviewpopup.ImagePopup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout
@@ -44,11 +45,17 @@ class QuestionAdapter(
         if (item.questionAttachment != null) {
             val questionAttachedImg = helper.getView<ImageView>(R.id.iv_question_attachment)
             questionAttachedImg.visibility = View.VISIBLE
+            val imgUrl = Network.DOMAIN + item.questionAttachment
             Glide
                 .with(helper.itemView)
-                .load(Network.DOMAIN + item.questionAttachment)
-                .centerCrop()
+                .load(imgUrl)
+                .centerInside()
                 .into(questionAttachedImg)
+            val popup = ImagePopup(questionAttachedImg.context)
+            popup.initiatePopupWithGlide(imgUrl)
+            questionAttachedImg.setOnClickListener {
+                popup.viewPopup()
+            }
         }
     }
 }
