@@ -2,7 +2,6 @@ package tiger.uniqueue.ui.queue
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -124,7 +123,6 @@ class QueueDetailActivity : AppCompatActivity() {
             when (it) {
                 is Resource.Success -> {
                     swipeRefresh.isRefreshing = false
-                    addQuestionButon.isVisible = true
                     updateQuestionList(it.data)
                 }
                 is Resource.Loading -> {
