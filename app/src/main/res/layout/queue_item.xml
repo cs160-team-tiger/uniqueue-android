@@ -55,6 +55,7 @@
             android:textColor="#C4820E" />
 
         <LinearLayout
+            android:id="@+id/footer_waiting_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

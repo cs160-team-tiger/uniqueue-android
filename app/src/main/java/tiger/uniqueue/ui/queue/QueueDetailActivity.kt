@@ -68,7 +68,7 @@ class QueueDetailActivity : AppCompatActivity() {
         val type: LoginType =
             InMemCache.INSTANCE[LoginViewModel.USER_TYPE_KEY] ?: LoginType.STUDENT
         uiConf = UserUiConf.valueOf(type)
-        headerAdapter = QueueAdapter(uiConf)
+        headerAdapter = QueueAdapter(uiConf, true)
         queueHeaderList.adapter = headerAdapter
         queueHeaderList.layoutManager = LinearLayoutManager(this)
 

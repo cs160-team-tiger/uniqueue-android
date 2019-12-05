@@ -10,7 +10,7 @@ import java.time.OffsetDateTime
 import java.time.temporal.ChronoUnit
 import java.util.*
 
-class QueueAdapter(private val uiConf: UserUiConf) :
+class QueueAdapter(private val uiConf: UserUiConf, private val showFooter: Boolean = false) :
     BaseQuickAdapter<Queue, BaseViewHolder>(
         R.layout.queue_item,
         LinkedList()
@@ -25,6 +25,7 @@ class QueueAdapter(private val uiConf: UserUiConf) :
             setText(R.id.position, item.questionIds.size.toString())
             setText(R.id.waitingTime, (item.questionIds.size * 3).toString())
             setGone(R.id.menu_header, uiConf.showQueueMenu)
+            setGone(R.id.footer_waiting_info, !showFooter)
         }
     }
 }
