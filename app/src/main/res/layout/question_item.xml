@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:padding="@dimen/less_padding">
+        android:padding="@dimen/less_padding"
+        android:paddingVertical="@dimen/common_padding">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -64,6 +65,12 @@
                 android:ellipsize="none"
                 android:text="Question 6: Pretty confused what to put into the &quot;having&quot; clause. Why doesn't abs(location) > 2? Why doesn't abs(location) > 2? Why doesn't abs(location) > 2?"
                 android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/iv_question_attachment"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:visibility="gone" />
 
         </LinearLayout>
 

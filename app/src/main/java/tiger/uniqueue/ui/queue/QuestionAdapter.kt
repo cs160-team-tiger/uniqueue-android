@@ -1,12 +1,16 @@
 package tiger.uniqueue.ui.queue
 
+import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.view.children
+import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.guanaj.easyswipemenulibrary.EasySwipeMenuLayout
 import retrofit2.Callback
 import tiger.uniqueue.R
+import tiger.uniqueue.data.Network
 import tiger.uniqueue.data.model.Question
 import tiger.uniqueue.data.model.QuestionAction
 import tiger.uniqueue.data.model.UserUiConf
@@ -36,6 +40,15 @@ class QuestionAdapter(
                     menuLayout.resetStatus()
                 }
             }
+        }
+        if (item.questionAttachment != null) {
+            val questionAttachedImg = helper.getView<ImageView>(R.id.iv_question_attachment)
+            questionAttachedImg.visibility = View.VISIBLE
+            Glide
+                .with(helper.itemView)
+                .load(Network.DOMAIN + item.questionAttachment)
+                .centerCrop()
+                .into(questionAttachedImg)
         }
     }
 }

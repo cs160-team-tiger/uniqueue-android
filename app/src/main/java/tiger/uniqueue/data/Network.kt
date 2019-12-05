@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object Network {
     val retrofit: Retrofit by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         Retrofit.Builder()
-            .baseUrl("https://cs160-uniqueue.herokuapp.com/")
+            .baseUrl(DOMAIN)
             .client(
                 OkHttpClient.Builder()
                     .cache(null)
@@ -21,4 +21,5 @@ object Network {
     val uniqueueService: UniqueueService by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
         retrofit.create(UniqueueService::class.java)
     }
+    const val DOMAIN = "https://cs160-uniqueue.herokuapp.com"
 }
