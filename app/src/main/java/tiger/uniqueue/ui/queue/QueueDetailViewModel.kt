@@ -48,12 +48,13 @@ class QueueDetailViewModel() : ViewModel(), IRefreshable, IAddStatus {
         val questionIds =
             queue.questionIds
 
+        var index = 1L
         val disposable = Flowable.fromIterable(questionIds)
             .concatMap {
                 Network.uniqueueService.getQuestionByIdRx(it).toFlowable()
             }
-
             .filter { it.status != "resolved" }
+            .doOnNext { it.index = index++ }
             .toList()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
