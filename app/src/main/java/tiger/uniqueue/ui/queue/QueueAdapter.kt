@@ -24,6 +24,7 @@ class QueueAdapter(private val uiConf: UserUiConf, private val showFooter: Boole
             setText(R.id.locationAndTime, "${item.locationName} (Started in $timeStr)")
             setText(R.id.position, item.questionIds.size.toString())
             setText(R.id.waitingTime, (item.questionIds.size * 3).toString())
+            setText(R.id.tv_msg_of_the_day, item.messageOfTheDay)
             setGone(R.id.menu_header, uiConf.showQueueMenu)
             setGone(R.id.footer_waiting_info, !showFooter)
         }
