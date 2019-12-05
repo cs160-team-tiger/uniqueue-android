@@ -10,7 +10,7 @@ import tiger.uniqueue.ui.queue.CreateQueueDialogFragment
 import tiger.uniqueue.ui.queue.IAddStatus
 
 enum class UserUiConf(@LayoutRes val questionLayoutInd: Int) {
-    STUDENT(R.layout.quesition_item) {
+    STUDENT(R.layout.question_item) {
         override val showAddQuestionFab: Boolean = true
         override fun showAddQuestionDialog(
             queueId: Long,
