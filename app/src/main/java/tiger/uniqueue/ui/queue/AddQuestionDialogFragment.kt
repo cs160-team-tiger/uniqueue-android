@@ -29,9 +29,6 @@ class AddQuestionDialogFragment(
                 val editText = view.findViewById<TextInputEditText>(
                     R.id.et_question
                 )
-                // TODO modify text
-//                setText(R.id.join_queue_position, )
-//                setText(R.id.time, )
                 setView(view)
                     .setPositiveButton(
                         R.string.action_confirm
@@ -50,48 +47,11 @@ class AddQuestionDialogFragment(
                         statusUpdater.updateStatus(
                             Resource.Loading()
                         )
+                        val callback = AddQuestionCallback(statusUpdater)
+
                         networkService
                             .offerQueue(queueId, userId, editText.text.toString())
-                            .enqueue(object :
-                                Callback<OfferResponse> {
-                                override fun onFailure(
-                                    call: Call<OfferResponse>,
-                                    t: Throwable
-                                ) {
-                                    statusUpdater.updateStatus(
-                                        Resource.Error(
-                                            t.message ?: "Network error"
-                                        )
-                                    )
-                                }
-
-                                override fun onResponse(
-                                    call: Call<OfferResponse>,
-                                    response: Response<OfferResponse>
-                                ) {
-                                    if (!response.isSuccessful) {
-                                        onFailure(
-                                            call,
-                                            Exception("Network error with code: ${response.code()}")
-                                        )
-                                        return
-                                    }
-
-                                    val status = response.body()?.status ?: false
-                                    statusUpdater.updateStatus(
-                                        if (status) {
-                                            Resource.Success(
-                                                "Body omitted"
-                                            )
-                                        } else {
-                                            Resource.Error(
-                                                "Operation failed."
-                                            )
-                                        }
-
-                                    )
-                                }
-                            })
+                            .enqueue(callback)
                     }
                     .setNegativeButton(
                         R.string.action_cancel
@@ -105,6 +65,45 @@ class AddQuestionDialogFragment(
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
+    class AddQuestionCallback(private val statusUpdater: IAddStatus) : Callback<OfferResponse> {
+        override fun onFailure(
+            call: Call<OfferResponse>,
+            t: Throwable
+        ) {
+            statusUpdater.updateStatus(
+                Resource.Error(
+                    t.message ?: "Network error"
+                )
+            )
+        }
+
+        override fun onResponse(
+            call: Call<OfferResponse>,
+            response: Response<OfferResponse>
+        ) {
+            if (!response.isSuccessful) {
+                onFailure(
+                    call,
+                    Exception("Network error with code: ${response.code()}")
+                )
+                return
+            }
+
+            val status = response.body()?.status ?: false
+            statusUpdater.updateStatus(
+                if (status) {
+                    Resource.Success(
+                        "Body omitted"
+                    )
+                } else {
+                    Resource.Error(
+                        "Operation failed."
+                    )
+                }
+
+            )
+        }
+    }
     companion object {
 
         fun newInstance(
