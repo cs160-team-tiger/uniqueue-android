@@ -11,9 +11,12 @@ class InMemCache private constructor() {
     }
 
     @Suppress("UNCHECKED_CAST")
+    @Synchronized
     operator fun <T> get(key: String): T? =
         _cache[key] as? T
 
+
+    @Synchronized
     operator fun set(key: String, value: Any?) {
         _cache[key] = value
     }
