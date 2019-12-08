@@ -1,7 +1,13 @@
 package tiger.uniqueue.ui.queue
 
 import android.app.Dialog
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import android.os.Bundle
+import android.provider.MediaStore
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
@@ -14,14 +20,26 @@ import tiger.uniqueue.data.UniqueueService
 import tiger.uniqueue.data.model.OfferResponse
 import tiger.uniqueue.ui.login.LoginViewModel
 
+
 class AddQuestionDialogFragment(
     statusUpdater: IAddStatus,
     networkService: UniqueueService
 ) :
     AddOperationDialogFragment(statusUpdater, networkService) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            REQ_PICK_IMG -> {
+
+            }
+            else -> {
+                super.onActivityResult(requestCode, resultCode, data)
+            }
+        }
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return activity?.let {
-            val builder = AlertDialog.Builder(it)
+        return activity?.let { activity ->
+            val builder = AlertDialog.Builder(activity)
             val inflater = requireActivity().layoutInflater
             val queueId = arguments?.getLong(QueueDetailActivity.QUEUE_ID_EXTRA)
             with(builder) {
@@ -29,6 +47,27 @@ class AddQuestionDialogFragment(
                 val editText = view.findViewById<TextInputEditText>(
                     R.id.et_question
                 )
+                val pickImgButton = view.findViewById<Button>(R.id.image_button).also { btn ->
+                    btn.setOnClickListener {
+                        var intent = Intent(
+                            Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                        )
+                        intent = Intent.createChooser(intent, "Pick a image")
+                        val activities: List<ResolveInfo> =
+                            activity.packageManager.queryIntentActivities(
+                                intent,
+                                PackageManager.MATCH_DEFAULT_ONLY
+                            )
+                        val isIntentSafe: Boolean = activities.isNotEmpty()
+                        if (!isIntentSafe) {
+                            Toast.makeText(activity, "No img picker available.", Toast.LENGTH_SHORT)
+                                .show()
+                            return@setOnClickListener
+                        }
+                        startActivityForResult(intent, REQ_PICK_IMG)
+                    }
+                }
                 setView(view)
                     .setPositiveButton(
                         R.string.action_confirm
@@ -104,7 +143,10 @@ class AddQuestionDialogFragment(
             )
         }
     }
+
     companion object {
+
+        private const val REQ_PICK_IMG = 2344134
 
         fun newInstance(
             queueId: Long,
