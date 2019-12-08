@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
+import com.ceylonlabs.imageviewpopup.ImagePopup
 import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
 import retrofit2.Callback
@@ -84,6 +85,13 @@ class AddQuestionDialogFragment(
                         return@setOnClickListener
                     }
                     startActivityForResult(intent, REQ_PICK_IMG)
+                }
+                ivPreview.setOnClickListener {
+                    val uri = imgUri
+                    uri ?: return@setOnClickListener
+                    val popup = ImagePopup(activity)
+                    popup.initiatePopupWithGlide(uri.toString())
+                    popup.viewPopup()
                 }
 
                 setView(view)
