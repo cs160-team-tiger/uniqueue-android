@@ -1,6 +1,7 @@
 package tiger.uniqueue.ui.queue
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
@@ -23,7 +24,9 @@ import tiger.uniqueue.data.InMemCache
 import tiger.uniqueue.data.Resource
 import tiger.uniqueue.data.UniqueueService
 import tiger.uniqueue.data.model.OfferResponse
+import tiger.uniqueue.data.model.Question
 import tiger.uniqueue.ui.login.LoginViewModel
+import tiger.uniqueue.uploadImage
 
 
 class AddQuestionDialogFragment(
@@ -104,7 +107,7 @@ class AddQuestionDialogFragment(
                         statusUpdater.updateStatus(
                             Resource.Loading()
                         )
-                        val callback = AddQuestionCallback(statusUpdater)
+                        val callback = AddQuestionCallback(activity, statusUpdater, networkService)
 
                         networkService
                             .offerQueue(queueId, userId, editText.text.toString())
@@ -122,7 +125,11 @@ class AddQuestionDialogFragment(
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
-    class AddQuestionCallback(private val statusUpdater: IAddStatus) : Callback<OfferResponse> {
+    inner class AddQuestionCallback(
+        private val context: Context,
+        private val statusUpdater: IAddStatus,
+        private val networkService: UniqueueService
+    ) : Callback<OfferResponse> {
         override fun onFailure(
             call: Call<OfferResponse>,
             t: Throwable
@@ -159,6 +166,23 @@ class AddQuestionDialogFragment(
                 }
 
             )
+
+            val questionId = response.body()?.question?.id
+            val uri = imgUri
+            if (status && questionId != null && uri != null) {
+                networkService
+                    .uploadImage(context, questionId, uri)
+                    .enqueue(object : Callback<Question> {
+                        //                        dummy
+                        override fun onFailure(call: Call<Question>, t: Throwable) {}
+
+                        override fun onResponse(
+                            call: Call<Question>,
+                            response: Response<Question>
+                        ) {
+                        }
+                    })
+            }
         }
     }
 

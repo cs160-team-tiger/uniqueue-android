@@ -3,6 +3,7 @@ package tiger.uniqueue.data;
 import java.util.List;
 
 import io.reactivex.Single;
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -72,5 +73,12 @@ public interface UniqueueService {
             @Part("motd") String motd,
             @Part("location_latitude") double lat,
             @Part("location_longitude") double lng
+    );
+
+    @POST("questions/uploadimage")
+    @Multipart
+    Call<Question> uploadImage(
+            @Query("id") long id,
+            @Part MultipartBody.Part file
     );
 }
