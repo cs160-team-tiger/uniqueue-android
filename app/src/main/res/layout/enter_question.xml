@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/less_padding"
     android:layout_marginHorizontal="@dimen/common_padding"
+    android:layout_marginVertical="@dimen/less_padding"
 
     android:foreground="?selectableItemBackground"
     app:cardElevation="4dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
         <TextView
             android:id="@+id/Join_the_Queue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_padding"
             android:layout_marginTop="14sp"
             android:ems="10"
             android:text="@string/title_join_the_queue"
-            android:layout_marginStart="@dimen/common_padding"
-            android:textAppearance="?android:attr/textAppearanceLarge"/>
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_padding"
-            android:layout_marginEnd="@dimen/common_padding"
             android:layout_marginTop="14sp"
+            android:layout_marginEnd="@dimen/common_padding"
             android:background="#16333333"
             android:hint="@string/hint_text"
             android:theme="@style/TextInputLayoutStyle"
@@ -46,18 +45,31 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/image_button"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="@dimen/common_padding"
-            android:layout_marginTop="14sp"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:background="#FFFFFF"
-            android:text="@string/attach_image"
-            android:textAllCaps="true"
-            android:textColor="#3B7EA1"
-            android:textStyle="bold"
-            android:typeface="normal" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/common_padding">
+
+            <Button
+                android:id="@+id/image_button"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="@dimen/common_padding"
+                android:background="#FFFFFF"
+                android:text="@string/attach_image"
+                android:textAllCaps="true"
+                android:textColor="#3B7EA1"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
+            <ImageView
+                android:id="@+id/iv_preview"
+                android:layout_marginStart="@dimen/common_padding"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+        </LinearLayout>
+
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

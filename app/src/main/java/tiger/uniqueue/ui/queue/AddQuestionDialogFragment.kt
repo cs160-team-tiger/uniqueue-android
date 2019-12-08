@@ -4,11 +4,16 @@ import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import butterknife.BindView
+import butterknife.ButterKnife
+import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,15 +31,31 @@ class AddQuestionDialogFragment(
     networkService: UniqueueService
 ) :
     AddOperationDialogFragment(statusUpdater, networkService) {
+    private var imgUri: Uri? = null
+    @BindView(R.id.et_question)
+    lateinit var editText: TextInputEditText
+    @BindView(R.id.image_button)
+    lateinit var pickImgButton: Button
+    @BindView(R.id.iv_preview)
+    lateinit var ivPreview: ImageView
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when (requestCode) {
             REQ_PICK_IMG -> {
-
+                onImgPicked(data?.data)
             }
             else -> {
                 super.onActivityResult(requestCode, resultCode, data)
             }
         }
+    }
+
+    private fun onImgPicked(uri: Uri?) {
+        imgUri = uri
+        Glide.with(ivPreview)
+            .load(imgUri)
+            .centerInside()
+            .into(ivPreview)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -44,30 +65,27 @@ class AddQuestionDialogFragment(
             val queueId = arguments?.getLong(QueueDetailActivity.QUEUE_ID_EXTRA)
             with(builder) {
                 val view = inflater.inflate(R.layout.enter_question, null)
-                val editText = view.findViewById<TextInputEditText>(
-                    R.id.et_question
-                )
-                val pickImgButton = view.findViewById<Button>(R.id.image_button).also { btn ->
-                    btn.setOnClickListener {
-                        var intent = Intent(
-                            Intent.ACTION_PICK,
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                ButterKnife.bind(this, view)
+                pickImgButton.setOnClickListener {
+                    var intent = Intent(
+                        Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                    )
+                    intent = Intent.createChooser(intent, "Pick a image")
+                    val activities: List<ResolveInfo> =
+                        activity.packageManager.queryIntentActivities(
+                            intent,
+                            PackageManager.MATCH_DEFAULT_ONLY
                         )
-                        intent = Intent.createChooser(intent, "Pick a image")
-                        val activities: List<ResolveInfo> =
-                            activity.packageManager.queryIntentActivities(
-                                intent,
-                                PackageManager.MATCH_DEFAULT_ONLY
-                            )
-                        val isIntentSafe: Boolean = activities.isNotEmpty()
-                        if (!isIntentSafe) {
-                            Toast.makeText(activity, "No img picker available.", Toast.LENGTH_SHORT)
-                                .show()
-                            return@setOnClickListener
-                        }
-                        startActivityForResult(intent, REQ_PICK_IMG)
+                    val isIntentSafe: Boolean = activities.isNotEmpty()
+                    if (!isIntentSafe) {
+                        Toast.makeText(activity, "No img picker available.", Toast.LENGTH_SHORT)
+                            .show()
+                        return@setOnClickListener
                     }
+                    startActivityForResult(intent, REQ_PICK_IMG)
                 }
+
                 setView(view)
                     .setPositiveButton(
                         R.string.action_confirm
@@ -146,7 +164,7 @@ class AddQuestionDialogFragment(
 
     companion object {
 
-        private const val REQ_PICK_IMG = 2344134
+        private const val REQ_PICK_IMG = 100
 
         fun newInstance(
             queueId: Long,
