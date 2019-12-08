@@ -65,7 +65,7 @@ class AddQuestionDialogFragment(
             val queueId = arguments?.getLong(QueueDetailActivity.QUEUE_ID_EXTRA)
             with(builder) {
                 val view = inflater.inflate(R.layout.enter_question, null)
-                ButterKnife.bind(this, view)
+                ButterKnife.bind(this@AddQuestionDialogFragment, view)
                 pickImgButton.setOnClickListener {
                     var intent = Intent(
                         Intent.ACTION_PICK,
