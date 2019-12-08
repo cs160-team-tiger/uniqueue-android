@@ -35,8 +35,8 @@ class QuestionAdapter(
             val menu = helper.getView<LinearLayout>(R.id.menu_swipe)
             val menuLayout = helper.getView<EasySwipeMenuLayout>(R.id.swipe_menu_layout)
             menu.children.iterator().forEach {
-                it.setOnClickListener {
-                    QuestionAction.valueOf(it.tag as String).markToBackend(item.id, uuid)
+                it.setOnClickListener { v ->
+                    QuestionAction.valueOf(v.tag as String).markToBackend(item.id, uuid)
                         .enqueue(questionActionCallback)
                     menuLayout.resetStatus()
                 }
