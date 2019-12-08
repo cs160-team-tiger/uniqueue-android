@@ -154,32 +154,45 @@ class AddQuestionDialogFragment(
             }
 
             val status = response.body()?.status ?: false
-            statusUpdater.updateStatus(
-                if (status) {
+            val uri = imgUri
+            if (!status) {
+//                fail to add question
+                statusUpdater.updateStatus(
+                    Resource.Error(
+                        response.body()?.error ?: "Error raised when adding question"
+                    )
+                )
+            } else if (uri == null) {
+                // question added and no img, good to go
+                statusUpdater.updateStatus(
                     Resource.Success(
                         "Body omitted"
                     )
-                } else {
-                    Resource.Error(
-                        "Operation failed."
-                    )
-                }
-
-            )
-
-            val questionId = response.body()?.question?.id
-            val uri = imgUri
-            if (status && questionId != null && uri != null) {
+                )
+            } else {
+                // question added and img to upload
+                val questionId = response.body()?.question?.id!!
                 networkService
                     .uploadImage(context, questionId, uri)
                     .enqueue(object : Callback<Question> {
                         //                        dummy
-                        override fun onFailure(call: Call<Question>, t: Throwable) {}
+                        override fun onFailure(call: Call<Question>, t: Throwable) {
+                            statusUpdater.updateStatus(
+                                Resource.Error(
+                                    "Failed to upload img"
+                                )
+                            )
+                        }
 
                         override fun onResponse(
                             call: Call<Question>,
                             response: Response<Question>
                         ) {
+                            statusUpdater.updateStatus(
+                                Resource.Success(
+                                    "Image uploaded"
+                                )
+                            )
                         }
                     })
             }

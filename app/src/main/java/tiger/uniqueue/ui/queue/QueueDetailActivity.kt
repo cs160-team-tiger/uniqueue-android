@@ -145,9 +145,11 @@ class QueueDetailActivity : AppCompatActivity() {
         viewModel.addStatus.observe(this, Observer {
             when (it) {
                 is Resource.Success -> {
+                    swipeRefresh.isRefreshing = false
                     refreshQueue()
                 }
                 is Resource.Loading -> {
+                    swipeRefresh.isRefreshing = true
                 }
                 is Resource.Error -> {
                     swipeRefresh.isRefreshing = false
